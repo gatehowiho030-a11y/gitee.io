@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>苏玖suon独家打造 | 氛围·情绪·热血纯音乐合集 | 原创纯音乐定制</title>
+    <meta name="keywords" content="苏玖suon,纯音乐,纯音乐定制,原创纯音乐,纯音乐合集,背景音乐,版权纯音乐,商用BGM">
+    <meta name="description" content="苏玖suon独家打造，专注原创纯音乐创作，氛围、情绪、热血全风格纯音乐在线试听，付费版权授权后可下载使用，承接各类纯音乐定制需求。">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- 版权购买弹窗 -->
+<div class="buy-modal" id="copyrightModal">
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="modal-content">
+        <button class="modal-close" id="closeModal">×</button>
+        <h3>🎵 苏玖suon独家打造 | 版权购买提示</h3>
+        <div class="modal-tip">
+            本站所有音乐均为<strong>苏玖suon独家打造·100%原创独立版权</strong>作品，<br>
+            <span class="highlight">仅提供在线免费试听，添加原创者购买音乐版权后方可下载</span>
+        </div>
+        <div class="wechat-info">
+            <p>📞 联系微信：<strong>sjzbdpd</strong>（添加请备注：苏玖suon版权购买）</p>
+            <p>📧 QQ 邮箱：<strong>2210301559@qq.com</strong></p>
+            <p>✅ 购买版权后：获取高音质MP3/WAV原版音频 + 商用授权文件</p>
+            <p>❌ 未经授权，禁止下载、搬运、剪辑、商用及二次传播</p>
+        </div>
+        <div class="qrcode-placeholder">
+            
+        </div>
+    </div>
+</div>
+<!-- 联系我们 / 商业合作 弹窗 -->
+<div class="buy-modal" id="contactModal">
+    <div class="modal-overlay" id="contactOverlay"></div>
+    <div class="modal-content">
+        <button class="modal-close" id="closeContactModal">×</button>
+        <h3>🤝 苏玖suon独家打造 | 联系我们 / 商业合作</h3>
+        <div class="modal-tip">
+            如需<strong>苏玖suon原创音乐定制、版权采购、商用授权、项目合作</strong>，<br>
+            <span class="highlight">可通过以下方式直接联系原创者，洽谈相关合作事宜</span>
+        </div>
+        <div class="wechat-info">
+            <p>📞 工作微信：<strong>sjzbdpd</strong>（添加请备注：苏玖suon合作/咨询）</p>
+            <p>📧 QQ 邮箱：<strong>2210301559@qq.com</strong></p>
+            <p>💼 合作范围：苏玖suon原创音乐定制、版权售卖、影视/短视频/游戏配乐、商用授权</p>
+        </div>
+        <div class="qrcode-placeholder">
+            
+        </div>
+    </div>
+</div>
+<!-- 顶部导航 -->
+<header class="edm-header">
+  <div class="edm-container">
+    <div class="header-flex">
+      <div class="edm-logo">
+        <span>苏玖suon</span> EXCLUSIVE
+      </div>
+      <nav class="edm-nav">
+        <a href="#collection">纯音乐合集</a>
+        <a href="#player-section">全局试听</a>
+        <a href="#custom">纯音乐定制</a>
+        <a href="#copyright">版权说明</a>
+        <a class="contact-link" href="#contact">联系我们</a>
+        <a class="business-link" href="javascript:void(0)">商业合作</a>
+      </nav>
+    </div>
+  </div>
+</header>
+<!-- 首屏Banner -->
+<section class="edm-hero">
+  <div class="edm-container edm-hero-inner">
+    <h1 class="edm-title">苏玖suon <span>EXCLUSIVE</span></h1>
+    <p class="edm-subtitle">苏玖suon独家打造 | 氛围·情绪·热血纯音乐合集在线试听 | 专注原创定制 | 正版版权可授权</p>
+    <div class="edm-buttons">
+      <a href="#collection" class="btn edm-btn-primary">进入合集</a>
+      <a href="#custom" class="btn edm-btn-secondary">定制纯音乐</a>
+    </div>
+  </div>
+</section>
+<!-- 全局波形播放器 -->
+<section id="player-section" class="edm-player-section">
+  <div class="edm-container">
+    <h2 class="edm-section-title">🎧 苏玖suon独家打造 | 全局试听播放器</h2>
+    <div class="visualizer-wrapper">
+      <canvas id="waveVisualizer"></canvas>
+    </div>
+    <div class="global-player">
+      <div class="player-info">
+        <span id="currentTrackName">请选择曲目开始播放</span>
+        <span id="currentBpm">-- BPM</span>
+      </div>
+      <div class="player-controls">
+        <button id="prevBtn" class="ctrl-btn">⏮</button>
+        <button id="playPauseBtn" class="ctrl-btn play-btn">▶</button>
+        <button id="nextBtn" class="ctrl-btn">⏭</button>
+        <button class="ctrl-btn download-in-player" id="globalDownloadBtn">⬇ 下载</button>
+        <button id="shuffleBtn" class="ctrl-btn mode-btn">🔀 随机</button>
+        <button id="loopBtn" class="ctrl-btn mode-btn">🔁 循环</button>
+      </div>
+      <div class="volume-wrapper">
+        <label>音量</label>
+        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.8">
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 纯音乐总合集 -->
+<section id="collection" class="collection-section">
+  <div class="edm-container">
+    <h2 class="edit-section-title">📀 苏玖suon独家打造 | 氛围·情绪·热血纯音乐合集</h2>
+    <div class="collection-single-wrapper">
+      <div class="collection-card">
+        <div class="card-neon-border"></div>
+        <div class="collection-cover">
+          <img src="./cover/collection-main.jpg" alt="苏玖suon独家合集封面">
+        </div>
+        <div class="collection-info">
+          <h3>苏玖suon独家 | 全风格原创纯音乐总合集</h3>
+          <p class="collection-desc">本合集由苏玖suon独家打造，包含氛围感、情绪向、高燃热血三大类纯音乐，适配情感短片、场景营造、高光混剪、励志宣传片、沉浸式视频、Vlog等全场景商用配乐</p>
+            <div class="track-item" data-src="./music/track9.mp3" data-name="炽焰征程【苏玖suon独家】" data-bpm="98">
+              <span class="track-num">09</span>
+              <span class="track-name">炽焰征程【热血向 | 苏玖suon独家】</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 纯音乐定制 -->
+<section id="custom" class="custom-section">
+  <div class="edm-container">
+    <h2 class="edm-section-title">🎹 苏玖suon独家打造 | 原创音乐定制服务</h2>
+    <div class="custom-desc-box">
+      <p>本站由<strong>苏玖suon独家承接纯音乐定制</strong>，不含人声、说唱、歌曲填词等业务，专注高品质原创纯音乐创作。</p>
+      <p>可定制风格：氛围感、情绪向、高燃热血、古风纯音、影视/短视频/游戏配乐、宣传片配乐等。</p>
+    </div>
+    <div class="custom-steps">
+      <div class="step-item">
+        <div class="step-num">01</div>
+        <h4>需求沟通</h4>
+        <p>明确用途、时长、情绪、风格、参考曲，确定苏玖suon原创创作方向与交付标准</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">02</div>
+        <h4>原创编曲</h4>
+        <p>苏玖suon100%原创旋律与编曲，无采样无抄袭，使用专业音色工程制作</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">03</div>
+        <h4>Demo试听</h4>
+        <p>提供苏玖suon原创初稿Demo，支持合理调整，确认后进入终版混音与母带</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">04</div>
+        <h4>成品交付</h4>
+        <p>交付苏玖suon原创高音质MP3/WAV分轨文件，附带商用授权协议，永久可用</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 版权说明 -->
+<section id="copyright" class="copyright-section">
+  <div class="edm-container">
+    <h2 class="edm-section-title">⚖️ 苏玖suon独家打造 | 版权与使用规则</h2>
+    <div class="copyright-box">
+      <p>1. 本站所有纯音乐作品均为<strong>苏玖suon独家创作·100%独立原创</strong>，拥有完整工程文件、分轨与著作权，受《中华人民共和国著作权法》保护。</p>
+      <p>2. 网站内所有纯音乐<strong>仅提供在线免费试听</strong>，未经付费购买版权，禁止下载、复制、传播、二次改编、商用使用。</p>
+      <p>3. 付费购买/定制后，获得<strong>苏玖suon原创非独家永久商用授权</strong>，可用于短视频、直播、影视、广告、游戏、宣传片等场景。</p>
+      <p>4. 禁止私自扒取、录屏、提取音频、去除水印、转售授权等侵权行为，违者追究法律责任。</p>
+      <p>5. 授权范围、使用场景、苏玖suon专属定制可联系客服详细洽谈，支持个性化授权方案。</p>
+    </div>
+  </div>
+</section>
+<!-- 联系我们 -->
+<section id="contact" class="contact-section">
+  <div class="edm-container">
+    <h2 class="edm-section-title contact-link">📩 苏玖suon独家 | 定制咨询 & 版权购买</h2>
+    <div class="contact-card">
+      <p><strong>工作微信</strong>：sjzbdpd（添加请备注：苏玖suon音乐/版权/合作）</p>
+      <p><strong>商务QQ邮箱</strong>：2210301559@qq.com</p>
+      <p><strong>服务范围</strong>：苏玖suon原创纯音乐定制、单曲/专辑版权采购、商用永久授权、影视/短视频专属配乐</p>
+      <p><strong>不承接</strong>：人声翻唱、填词、非原创改编、侵权音频制作等业务</p>
+    </div>
+  </div>
+</section>
+<footer class="edm-footer">
+  <div class="edm-container">
+    <p>© 2026 苏玖suon独家原创纯音乐版权站 · 所有音乐作品均受版权保护 · 仅限试听</p>
+  </div>
+</footer>
+<script src="script.js"></script>
+<script>
+// 全局播放状态与配置
+const audio = new Audio();
+const tracks = Array.from(document.querySelectorAll('.track-item'));
+let currentIndex = 0;
+let isShuffle = false;    
+let loopMode = 'none';    
+// 版权弹窗 - 仅下载按钮触发
+const globalDownloadBtn = document.getElementById('globalDownloadBtn');
+const copyrightModal = document.getElementById('copyrightModal');
+const closeCopyrightModal = document.getElementById('closeModal');
+const copyrightOverlay = document.getElementById('modalOverlay');
+function openCopyrightModal() {
+  copyrightModal.style.display = 'flex';
+  contactModal.style.display = 'none';
+}
+function closeCopyrightModalFunc() {
+  copyrightModal.style.display = 'none';
+}
+globalDownloadBtn.addEventListener('click', openCopyrightModal);
+closeCopyrightModal.addEventListener('click', closeCopyrightModalFunc);
+copyrightOverlay.addEventListener('click', closeCopyrightModalFunc);
+// 联系/合作弹窗
+const contactModal = document.getElementById('contactModal');
+const closeContactModal = document.getElementById('closeContactModal');
+const contactOverlay = document.getElementById('contactOverlay');
+const contactLinkList = document.querySelectorAll('.contact-link, .business-link');
+function openContactModal() {
+  contactModal.style.display = 'flex';
+  copyrightModal.style.display = 'none';
+}
+function closeContactModalFunc() {
+  contactModal.style.display = 'none';
+}
+contactLinkList.forEach(item => {
+  item.addEventListener('click', function(e) {
+    if(this.getAttribute('href') === '#contact') {
+      e.preventDefault();
+    }
+    openContactModal();
+  });
+});
+closeContactModal.addEventListener('click', closeContactModalFunc);
+contactOverlay.addEventListener('click', closeContactModalFunc);
+// 播放核心函数
+function loadTrack(index) {
+  if(index < 0 || index >= tracks.length) return;
+  currentIndex = index;
+  const track = tracks[index];
+  const src = track.dataset.src;
+  const name = track.dataset.name;
+  const bpm = track.dataset.bpm;
+  audio.src = src;
+  document.getElementById('currentTrackName').textContent = name;
+  document.getElementById('currentBpm').textContent = `${bpm} BPM`;
+  tracks.forEach(el => el.style.backgroundColor = '');
+  track.style.backgroundColor = '#222233';
+}
+function playCurrent() {
+  loadTrack(currentIndex);
+  audio.play();
+  document.getElementById('playPauseBtn').textContent = '⏸';
+}
+// 上一曲
+document.getElementById('prevBtn').addEventListener('click', () => {
+  if(isShuffle) {
+    currentIndex = Math.floor(Math.random() * tracks.length);
+  } else {
+    currentIndex = (currentIndex - 1 + tracks.length) % tracks.length;
+  }
+  playCurrent();
+});
+// 播放/暂停
+document.getElementById('playPauseBtn').addEventListener('click', () => {
+  if(audio.paused) {
+    if(!audio.src) loadTrack(0);
+    audio.play();
+    document.getElementById('playPauseBtn').textContent = '⏸';
+  } else {
+    audio.pause();
+    document.getElementById('playPauseBtn').textContent = '▶';
+  }
+});
+// 下一曲
+document.getElementById('nextBtn').addEventListener('click', () => {
+  nextTrack();
+});
+function nextTrack() {
+  if(isShuffle) {
+    let newIndex;
+    do { newIndex = Math.floor(Math.random() * tracks.length); }
+    while(newIndex === currentIndex && tracks.length > 1);
+    currentIndex = newIndex;
+  } else {
+    currentIndex = (currentIndex + 1) % tracks.length;
+  }
+  playCurrent();
+}
+// 歌曲播放结束自动切歌
+audio.addEventListener('ended', () => {
+  if(loopMode === 'single') {
+    audio.currentTime = 0;
+    audio.play();
+  } else {
+    nextTrack();
+  }
+});
+// 点击歌曲列表切换（无弹窗）
+tracks.forEach((item, idx) => {
+  item.addEventListener('click', () => {
+    currentIndex = idx;
+    playCurrent();
+  });
+});
+// 音量控制
+document.getElementById('volumeSlider').addEventListener('input', (e) => {
+  audio.volume = e.target.value;
+});
+// 随机播放按钮
+const shuffleBtn = document.getElementById('shuffleBtn');
+shuffleBtn.addEventListener('click', () => {
+  isShuffle = !isShuffle;
+  shuffleBtn.style.backgroundColor = isShuffle ? '#7a3cfd' : '#222233';
+  if(isShuffle) loopMode = 'none';
+  document.getElementById('loopBtn').style.backgroundColor = '#222233';
+});
+// 循环播放按钮
+const loopBtn = document.getElementById('loopBtn');
+loopBtn.addEventListener('click', () => {
+  if(loopMode === 'none') {
+    loopMode = 'list';
+    loopBtn.textContent = '🔁 列表';
+    audio.loop = false;
+  } else if(loopMode === 'list') {
+    loopMode = 'single';
+    loopBtn.textContent = '🔂 单曲';
+    audio.loop = true;
+  } else {
+    loopMode = 'none';
+    loopBtn.textContent = '🔁 循环';
+    audio.loop = false;
+  }
+  loopBtn.style.backgroundColor = loopMode !== 'none' ? '#7a3cfd' : '#222233';
+  isShuffle = false;
+  shuffleBtn.style.backgroundColor = '#222233';
+});
+</script>
+</body>
+</html>
+```

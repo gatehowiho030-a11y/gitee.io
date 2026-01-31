@@ -1,0 +1,369 @@
+```css
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Microsoft YaHei", sans-serif;
+}
+body {
+    background-color: #0a0a1a;
+    color: #ffffff;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+.edm-container {
+    width: 92%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.edm-header {
+    padding: 20px 0;
+    background-color: #111122;
+    border-bottom: 1px solid #222233;
+    position: sticky;
+    top: 0;
+    z-index: 998;
+}
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.edm-logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #7a3cfd;
+}
+.edm-nav a {
+    color: #eeeeee;
+    text-decoration: none;
+    margin-left: 24px;
+    font-size: 15px;
+    transition: color 0.3s;
+}
+.edm-nav a:hover,
+.contact-link:hover,
+.business-link:hover {
+    color: #ff3c78;
+}
+.contact-link, .business-link {
+    cursor: pointer;
+}
+.edm-hero {
+    padding: 80px 0;
+    text-align: center;
+    background: linear-gradient(135deg, #111122, #0a0a1a);
+}
+.edm-hero h1 {
+    font-size: 42px;
+    margin-bottom: 16px;
+}
+.edm-hero h1 span {
+    color: #7a3cfd;
+}
+.edm-hero p {
+    font-size: 16px;
+    color: #cccccc;
+    max-width: 700px;
+    margin: 0 auto 30px;
+}
+.edm-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+.edm-btn-primary, .edm-btn-secondary {
+    padding: 12px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.edm-btn-primary {
+    background-color: #7a3cfd;
+    color: #fff;
+}
+.edm-btn-secondary {
+    background-color: transparent;
+    color: #7a3cfd;
+    border: 1px solid #7a3cfd;
+}
+.edm-player-section {
+    padding: 60px 0;
+    text-align: center;
+}
+.edm-section-title {
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: #ffffff;
+}
+.visualizer-wrapper {
+    width: 100%;
+    height: 120px;
+    background-color: #111122;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666677;
+}
+.global-player {
+    background-color: #111122;
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 700px;
+    margin: 0 auto;
+}
+.player-info {
+    margin-bottom: 16px;
+    font-size: 15px;
+    color: #cccccc;
+}
+.player-controls {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    align-items: center;
+}
+.ctrl-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background-color: #222233;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+.ctrl-btn:hover {
+    background-color: #7a3cfd;
+}
+.download-in-player {
+    width: auto;
+    padding: 0 14px;
+    border-radius: 22px;
+    font-size: 14px;
+    gap: 4px;
+}
+.mode-btn {
+    width: auto;
+    padding: 0 10px;
+    border-radius: 22px;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+.volume-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 14px;
+}
+.collection-section {
+    padding: 60px 0;
+}
+.collection-single-wrapper {
+    display: flex;
+    justify-content: center;
+}
+.collection-card {
+    background-color: #111122;
+    border-radius: 12px;
+    padding: 30px;
+    width: 100%;
+    max-width: 800px;
+    position: relative;
+}
+.card-neon-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 12px;
+    padding: 2px;
+    background: linear-gradient(135deg, #7a3cfd, #ff3c78);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+.collection-cover img {
+    width: 100%;
+    max-width: 280px;
+    border-radius: 8px;
+    margin: 0 auto 20px;
+    display: block;
+    object-fit: cover;
+}
+.collection-info h3 {
+    font-size: 22px;
+    margin-bottom: 12px;
+    text-align: center;
+}
+.collection-desc {
+    color: #cccccc;
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 15px;
+}
+.collection-tracklist {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.track-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    background-color: #181828;
+    border-radius: 6px;
+    transition: 0.3s;
+    cursor: default;
+}
+.track-item:hover {
+    background-color: #222233;
+}
+.track-num {
+    width: 36px;
+    text-align: center;
+    color: #9999aa;
+    font-size: 14px;
+}
+.track-name {
+    flex: 1;
+    font-size: 15px;
+}
+.custom-section, .copyright-section, .contact-section {
+    padding: 60px 0;
+}
+.custom-desc-box {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 30px;
+    color: #cccccc;
+}
+.custom-steps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+.step-item {
+    background-color: #111122;
+    padding: 24px;
+    border-radius: 8px;
+    width: 280px;
+    text-align: center;
+}
+.step-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #7a3cfd;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    font-weight: bold;
+}
+.step-item h4 {
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+.step-item p {
+    font-size: 14px;
+    color: #cccccc;
+}
+.copyright-box, .contact-card {
+    background-color: #111122;
+    padding: 30px;
+    border-radius: 8px;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+.copyright-box p, .contact-card p {
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+.edm-footer {
+    padding: 30px 0;
+    text-align: center;
+    background-color: #111122;
+    border-top: 1px solid #222233;
+    color: #888899;
+    font-size: 14px;
+}
+
+/* 弹窗通用样式 */
+.buy-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+.modal-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+.modal-content {
+    position: relative;
+    background: #111122;
+    border: 2px solid #7a3cfd;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 520px;
+    padding: 30px;
+    color: #fff;
+    text-align: center;
+}
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+}
+.modal-tip {
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+.highlight {
+    color: #ff3c78;
+    font-weight: bold;
+}
+.wechat-info p {
+    line-height: 1.8;
+    margin: 6  0;
+    font-size: 15px;
+}
+.qrcode-placeholder {
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px dashed #7a3cfd;
+    border-radius: 8px;
+    color: #ccc;
+}
+```
