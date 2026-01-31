@@ -7,6 +7,80 @@
     <meta name="keywords" content="苏玖suon,纯音乐,纯音乐定制,原创纯音乐,纯音乐合集,背景音乐,版权纯音乐,商用BGM">
     <meta name="description" content="苏玖suon独家打造，专注原创纯音乐创作，氛围、情绪、热血全风格纯音乐在线试听，付费版权授权后可下载使用，承接各类纯音乐定制需求。">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* 赛博朋克进度条样式（直接内嵌，也可复制到style.css） */
+        .progress-container {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 15px 0;
+            position: relative;
+        }
+        #currentTime, #totalTime {
+            color: #00ff9d;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            text-shadow: 0 0 8px #00ff9d, 0 0 12px rgba(0, 255, 157, 0.6);
+        }
+        #progressBar {
+            flex: 1;
+            height: 8px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: linear-gradient(90deg, #ff00ff 0%, #00ffff 100%);
+            border-radius: 4px;
+            outline: none;
+            box-shadow: 0 0 10px #ff00ff, 0 0 15px rgba(0, 255, 255, 0.7), inset 0 0 6px rgba(0, 0, 0, 0.8);
+            position: relative;
+        }
+        #progressBar::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 0 8px #ff00ff, 0 0 12px #00ffff, 0 0 16px rgba(255, 0, 255, 0.8);
+            border: 2px solid #00ffff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        #progressBar::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 0 8px #ff00ff, 0 0 12px #00ffff, 0 0 16px rgba(255, 0, 255, 0.8);
+            border: 2px solid #00ffff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        #progressBar::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 12px #ff00ff, 0 0 18px #00ffff, 0 0 24px rgba(255, 0, 255, 1);
+        }
+        #progressBar::-moz-range-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 12px #ff00ff, 0 0 18px #00ffff, 0 0 24px rgba(255, 0, 255, 1);
+        }
+        #progressBar::-webkit-slider-runnable-track {
+            background: linear-gradient(90deg, #ff00ff 0%, #00ffff 100%);
+            border-radius: 4px;
+        }
+        .progress-container::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            transform: translateY(-50%);
+            border-radius: 6px;
+            box-shadow: 0 0 12px #ff00ff, inset 0 0 8px rgba(0, 255, 255, 0.5);
+            z-index: -1;
+        }
+    </style>
 </head>
 <body>
 <!-- 版权购买弹窗 -->
@@ -22,7 +96,7 @@
         <div class="wechat-info">
             <p>📞 联系微信：<strong>sjzbdpd</strong>（添加请备注：苏玖suon版权购买）</p>
             <p>📧 QQ 邮箱：<strong>2210301559@qq.com</strong></p>
-            <p>✅ 购买版权后：获取高音质MP3/WAV原版音频 + 商用授权文件</p>
+            <p>✅ 购买版权后：获取高音质WAV原版音频 + 商用授权文件</p>
             <p>❌ 未经授权，禁止下载、搬运、剪辑、商用及二次传播</p>
         </div>
         <div class="qrcode-placeholder">
@@ -88,9 +162,16 @@
     </div>
     <div class="global-player">
       <div class="player-info">
-        <span id="currentTrackName">请选择曲目开始播放</span>
-        <span id="currentBpm">-- BPM</span>
+        <span id="currentTrackName">请选择曲目开始播放</span> <!-- 修复原ID错误 -->
+        <span id="currentmp3">-- mp3</span>
       </div>
+      <!-- 新增赛博朋克进度条 -->
+      <div class="progress-container">
+        <span id="currentTime">00:00</span>
+        <input type="range" id="progressBar" min="0" max="100" value="0" step="0.1">
+        <span id="totalTime">00:00</span>
+      </div>
+      <!-- 进度条结束 -->
       <div class="player-controls">
         <button id="prevBtn" class="ctrl-btn">⏮</button>
         <button id="playPauseBtn" class="ctrl-btn play-btn">▶</button>
@@ -119,9 +200,9 @@
         <div class="collection-info">
           <h3>苏玖suon独家 | 全风格原创纯音乐总合集</h3>
           <p class="collection-desc">本合集由苏玖suon独家打造，包含氛围感、情绪向、高燃热血三大类纯音乐，适配情感短片、场景营造、高光混剪、励志宣传片、沉浸式视频、Vlog等全场景商用配乐</p>
-            <div class="track-item" data-src="./music/track9.mp3" data-name="炽焰征程【苏玖suon独家】" data-bpm="98">
-              <span class="track-num">09</span>
-              <span class="track-name">炽焰征程【热血向 | 苏玖suon独家】</span>
+            <div class="track-item" data-src="./music/track1.mp3" data-name="灵魂动感电音【苏玖suon独家】" data-mp3="98">
+              <span class="track-num">01</span>
+              <span class="track-name">灵魂动感电音【热血向 | 苏玖suon独家】</span>
             </div>
           </div>
         </div>
@@ -243,10 +324,10 @@ function loadTrack(index) {
   const track = tracks[index];
   const src = track.dataset.src;
   const name = track.dataset.name;
-  const bpm = track.dataset.bpm;
+  const mp3 = track.dataset.mp3;
   audio.src = src;
   document.getElementById('currentTrackName').textContent = name;
-  document.getElementById('currentBpm').textContent = `${bpm} BPM`;
+  document.getElementById('currentmp3').textContent = `${mp3} mp3`;
   tracks.forEach(el => el.style.backgroundColor = '');
   track.style.backgroundColor = '#222233';
 }
@@ -337,6 +418,45 @@ loopBtn.addEventListener('click', () => {
   loopBtn.style.backgroundColor = loopMode !== 'none' ? '#7a3cfd' : '#222233';
   isShuffle = false;
   shuffleBtn.style.backgroundColor = '#222233';
+});
+
+// 新增1：纯音乐定制点击弹窗（与联系我们弹窗逻辑一致）
+const customLinks = document.querySelectorAll('a[href="#custom"]');
+customLinks.forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault(); // 阻止默认跳转
+    openContactModal(); // 复用现有弹窗函数
+  });
+});
+
+// 新增2：赛博朋克进度条功能逻辑
+const progressBar = document.getElementById('progressBar');
+const currentTimeEl = document.getElementById('currentTime');
+const totalTimeEl = document.getElementById('totalTime');
+
+// 格式化时间为 00:00 格式
+function formatTime(seconds) {
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+}
+
+// 音频元数据加载完成后显示总时长
+audio.addEventListener('loadedmetadata', () => {
+  totalTimeEl.textContent = formatTime(audio.duration);
+});
+
+// 音频播放时更新进度条和当前时间
+audio.addEventListener('timeupdate', () => {
+  const progress = (audio.currentTime / audio.duration) * 100;
+  progressBar.value = progress;
+  currentTimeEl.textContent = formatTime(audio.currentTime);
+});
+
+// 点击进度条跳转播放位置
+progressBar.addEventListener('input', () => {
+  const seekTime = (progressBar.value / 100) * audio.duration;
+  audio.currentTime = seekTime;
 });
 </script>
 </body>
