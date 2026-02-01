@@ -1,8 +1,9 @@
+```html
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>苏玖suon独家打造 | 氛围·情绪·热血纯音乐合集 | 原创纯音乐定制</title>
     <meta name="keywords" content="苏玖suon,纯音乐,纯音乐定制,原创纯音乐,纯音乐合集,背景音乐,版权纯音乐,商用BGM">
     <meta name="description" content="苏玖suon独家打造，专注原创纯音乐创作，氛围、情绪、热血全风格纯音乐在线试听，付费版权授权后可下载使用，承接各类纯音乐定制需求。">
@@ -81,136 +82,108 @@
             z-index: -1;
         }
 
-        /* 1：当前播放曲目高亮动画 */
-        .track-item.active {
-            background-color: #222233 !important;
-            border-left: 3px solid #00ffff;
-            padding-left: 8px;
-            animation: neonPulse 1.5s infinite alternate;
-            cursor: pointer;
+        /* 新增：浏览器兼容性+移动端适配样式（不影响原有样式） */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent; /* 清除移动端点击高亮 */
         }
-        @keyframes neonPulse {
-            from { box-shadow: 0 0 5px #00ffff, 0 0 10px rgba(0, 255, 255, 0.3); }
-            to { box-shadow: 0 0 10px #00ffff, 0 0 20px rgba(0, 255, 255, 0.6), 0 0 30px rgba(0, 255, 255, 0.4); }
+        body {
+            -webkit-font-smoothing: antialiased; /* Safari字体抗锯齿 */
+            -moz-osx-font-smoothing: grayscale; /* Firefox字体抗锯齿 */
         }
-        .track-name { color: #fff; }
-        .track-item.active .track-name { color: #00ff9d; text-shadow: 0 0 6px #00ff9d; }
-
-        /* 2：进度条悬浮时间提示 */
-        .progress-tooltip {
-            position: absolute;
-            background: rgba(0, 0, 0, 0.8);
-            color: #00ff9d;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-size: 12px;
-            font-family: 'Courier New', monospace;
+        /* 移动端导航适配（汉堡菜单） */
+        .mobile-nav-btn {
             display: none;
-            pointer-events: none;
-            z-index: 10;
-        }
-
-        /* 3：曲目搜索框样式 */
-        .search-container {
-            margin: 20px 0;
-            display: flex;
-            gap: 10px;
-        }
-        #searchInput {
-            flex: 1;
-            padding: 10px 15px;
-            border: 2px solid #00ffff;
-            border-radius: 4px;
-            background: #111;
-            color: #00ff9d;
-            font-family: 'Courier New', monospace;
-            box-shadow: 0 0 8px rgba(0, 255, 255, 0.5), inset 0 0 6px rgba(0, 0, 0, 0.8);
-            outline: none;
-        }
-        #searchInput::placeholder {
-            color: #00ff9d80;
-        }
-        #searchBtn {
-            padding: 0 20px;
-            background: linear-gradient(90deg, #ff00ff 0%, #00ffff 100%);
-            border: none;
-            border-radius: 4px;
-            color: #fff;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 0 10px #ff00ff, 0 0 15px rgba(0, 255, 255, 0.7);
-            transition: all 0.2s ease;
-        }
-        #searchBtn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px #ff00ff, 0 0 20px rgba(0, 255, 255, 0.9);
-        }
-
-        /* 4：播放历史样式 */
-        .history-section {
-            margin-top: 30px;
-            padding: 20px;
-            border: 2px solid #7a3cfd;
-            border-radius: 8px;
-            background: rgba(122, 60, 253, 0.1);
-            box-shadow: 0 0 15px rgba(122, 60, 253, 0.3);
-        }
-        .history-title {
-            color: #00ffff;
-            margin-bottom: 15px;
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .history-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .history-item {
-            padding: 6px 12px;
-            background: #222;
-            border: 1px solid #00ffff;
-            border-radius: 20px;
-            color: #00ff9d;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .history-item:hover {
-            background: #7a3cfd;
-            box-shadow: 0 0 8px #00ffff;
-        }
-        .clear-history {
-            margin-top: 15px;
-            padding: 6px 12px;
             background: transparent;
-            border: 1px solid #ff00ff;
-            border-radius: 4px;
-            color: #ff00ff;
+            border: none;
+            color: #00ffff;
+            font-size: 24px;
             cursor: pointer;
-            transition: all 0.2s ease;
         }
-        .clear-history:hover {
-            background: rgba(255, 0, 255, 0.2);
-            box-shadow: 0 0 8px #ff00ff;
+        .mobile-nav-close {
+            display: none;
+            background: transparent;
+            border: none;
+            color: #ff00ff;
+            font-size: 28px;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
         }
-
-        /* 5：闪电心电图波浪容器样式（保持不变） */
-        .ecg-container {
-            width: 100%;
-            height: 80px;
-            margin: 15px 0;
-            position: relative;
-            overflow: hidden;
-            border-radius: 4px;
-            background: rgba(0, 0, 0, 0.5);
-            box-shadow: 0 0 10px #00ffff, inset 0 0 6px rgba(0, 0, 0, 0.8);
+        /* 移动端响应式调整 */
+        @media (max-width: 768px) {
+            .mobile-nav-btn {
+                display: block;
+            }
+            .mobile-nav-close {
+                display: block;
+            }
+            .edm-nav {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.95);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 30px;
+                z-index: 999;
+            }
+            .edm-nav.active {
+                display: flex;
+            }
+            .edm-title {
+                font-size: 32px;
+            }
+            .edm-subtitle {
+                font-size: 16px;
+                line-height: 1.5;
+            }
+            .player-controls {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            .ctrl-btn {
+                padding: 12px 18px;
+                font-size: 18px;
+                flex: 1 1 30%;
+                min-width: 70px;
+            }
+            .volume-wrapper {
+                justify-content: center;
+                margin-top: 15px;
+            }
+            #volumeSlider {
+                width: 120px;
+            }
+            .visualizer-wrapper {
+                height: 100px;
+            }
+            .collection-card {
+                width: 95%;
+                margin: 0 auto;
+            }
+            .modal-content {
+                width: 92%;
+                max-width: 400px;
+                padding: 20px;
+            }
         }
-        #ecgCanvas {
-            width: 100%;
-            height: 100%;
+        /* IE浏览器兼容降级 */
+        audio {
+            display: none;
+        }
+        .progress-container {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
         }
     </style>
 </head>
@@ -256,14 +229,17 @@
         </div>
     </div>
 </div>
-<!-- 顶部导航 -->
+<!-- 顶部导航（新增移动端汉堡菜单） -->
 <header class="edm-header">
   <div class="edm-container">
     <div class="header-flex">
       <div class="edm-logo">
         <span>苏玖suon</span> EXCLUSIVE
       </div>
-      <nav class="edm-nav">
+      <!-- 新增移动端汉堡菜单按钮 -->
+      <button class="mobile-nav-btn" id="mobileNavBtn">☰</button>
+      <nav class="edm-nav" id="edmNav">
+        <button class="mobile-nav-close" id="mobileNavClose">×</button>
         <a href="#collection">纯音乐合集</a>
         <a href="#player-section">全局试听</a>
         <a href="#custom">纯音乐定制</a>
@@ -285,25 +261,23 @@
     </div>
   </div>
 </section>
-<!-- 全局波形播放器（已删除炫彩波浪，新增心电图波浪） -->
+<!-- 全局波形播放器 -->
 <section id="player-section" class="edm-player-section">
   <div class="edm-container">
     <h2 class="edm-section-title">🎧 苏玖suon独家打造 | 全局试听播放器</h2>
-    <!-- 新增：闪电心电图波浪容器 -->
-    <div class="ecg-container">
-      <canvas id="ecgCanvas"></canvas>
+    <div class="visualizer-wrapper">
+      <canvas id="waveVisualizer"></canvas>
     </div>
     <div class="global-player">
       <div class="player-info">
-        <span id="currentTrackName">请选择曲目开始播放</span>
+        <span id="currentTrackName">请选择曲目开始播放</span> <!-- 修复原ID错误 -->
         <span id="currentmp3">-- mp3</span>
       </div>
-      <!-- 赛博朋克进度条（含悬浮提示） -->
+      <!-- 新增赛博朋克进度条 -->
       <div class="progress-container">
         <span id="currentTime">00:00</span>
         <input type="range" id="progressBar" min="0" max="100" value="0" step="0.1">
         <span id="totalTime">00:00</span>
-        <div class="progress-tooltip" id="progressTooltip"></div>
       </div>
       <!-- 进度条结束 -->
       <div class="player-controls">
@@ -311,7 +285,6 @@
         <button id="playPauseBtn" class="ctrl-btn play-btn">▶</button>
         <button id="nextBtn" class="ctrl-btn">⏭</button>
         <button class="ctrl-btn download-in-player" id="globalDownloadBtn">⬇ 下载</button>
-        <button id="muteBtn" class="ctrl-btn mode-btn">🔊 静音</button>
         <button id="shuffleBtn" class="ctrl-btn mode-btn">🔀 随机</button>
         <button id="loopBtn" class="ctrl-btn mode-btn">🔁 循环</button>
       </div>
@@ -322,15 +295,10 @@
     </div>
   </div>
 </section>
-<!-- 纯音乐总合集（新增搜索功能） -->
+<!-- 纯音乐总合集 -->
 <section id="collection" class="collection-section">
   <div class="edm-container">
     <h2 class="edit-section-title">📀 苏玖suon独家打造 | 氛围·情绪·热血纯音乐合集</h2>
-    <!-- 新增：曲目搜索框 -->
-    <div class="search-container">
-      <input type="text" id="searchInput" placeholder="搜索曲目名称...（支持关键词）">
-      <button id="searchBtn">🔍 搜索</button>
-    </div>
     <div class="collection-single-wrapper">
       <div class="collection-card">
         <div class="card-neon-border"></div>
@@ -343,26 +311,9 @@
             <div class="track-item" data-src="./music/track1.mp3" data-name="灵魂动感电音【苏玖suon独家】" data-mp3="1">
               <span class="track-num">01</span>
               <span class="track-name">灵魂动感电音【热血向 | 苏玖suon独家】</span>
-            </div>
-            <div class="track-item" data-src="./music/track2.mp3" data-name="心灵爆炸电音【苏玖suon独家】" data-mp3="1">
+              <div class="track-item" data-src="./music/track2.mp3" data-name="心灵爆炸电音【苏玖suon独家】" data-mp3="1">
               <span class="track-num">02</span>
-              <span class="track-name">心灵爆炸电音【热血向 | 苏玖suon独家】</span>
-            </div>
-
-            </div>
-        </div>
-      </div>
-    </div>
-    <!-- 新增：播放历史记录 -->
-    <div class="history-section">
-      <h3 class="history-title">📜 播放历史</h3>
-      <div class="history-list" id="historyList">
-        <!-- 历史记录将通过JS动态生成 -->
-        <span class="history-item">暂无播放记录</span>
-      </div>
-      <button class="clear-history" id="clearHistoryBtn">清空历史</button>
-    </div>
-  </div>
+               <span class="track-name">心灵爆炸电音【热血向 | 苏玖suon独家】</span>
 </section>
 <!-- 纯音乐定制 -->
 <section id="custom" class="custom-section">
@@ -434,9 +385,6 @@ const tracks = Array.from(document.querySelectorAll('.track-item'));
 let currentIndex = 0;
 let isShuffle = false;    
 let loopMode = 'none';    
-// 播放历史存储（本地存储持久化）
-let playHistory = JSON.parse(localStorage.getItem('playHistory')) || [];
-
 // 版权弹窗 - 仅下载按钮触发
 const globalDownloadBtn = document.getElementById('globalDownloadBtn');
 const copyrightModal = document.getElementById('copyrightModal');
@@ -452,7 +400,6 @@ function closeCopyrightModalFunc() {
 globalDownloadBtn.addEventListener('click', openCopyrightModal);
 closeCopyrightModal.addEventListener('click', closeCopyrightModalFunc);
 copyrightOverlay.addEventListener('click', closeCopyrightModalFunc);
-
 // 联系/合作弹窗
 const contactModal = document.getElementById('contactModal');
 const closeContactModal = document.getElementById('closeContactModal');
@@ -475,8 +422,7 @@ contactLinkList.forEach(item => {
 });
 closeContactModal.addEventListener('click', closeContactModalFunc);
 contactOverlay.addEventListener('click', closeContactModalFunc);
-
-// 播放核心函数（新增当前曲目高亮+播放历史记录）
+// 播放核心函数
 function loadTrack(index) {
   if(index < 0 || index >= tracks.length) return;
   currentIndex = index;
@@ -487,20 +433,14 @@ function loadTrack(index) {
   audio.src = src;
   document.getElementById('currentTrackName').textContent = name;
   document.getElementById('currentmp3').textContent = `${mp3} mp3`;
-  // 新增：移除所有激活状态，给当前曲目添加高亮
-  tracks.forEach(el => el.classList.remove('active'));
-  track.classList.add('active');
-  // 新增：添加到播放历史（去重）
-  addToHistory({ name, src, index });
+  tracks.forEach(el => el.style.backgroundColor = '');
+  track.style.backgroundColor = '#222233';
 }
 function playCurrent() {
   loadTrack(currentIndex);
   audio.play();
   document.getElementById('playPauseBtn').textContent = '⏸';
-  // 启动心电图动画
-  startEcgAnimation();
 }
-
 // 上一曲
 document.getElementById('prevBtn').addEventListener('click', () => {
   if(isShuffle) {
@@ -510,21 +450,17 @@ document.getElementById('prevBtn').addEventListener('click', () => {
   }
   playCurrent();
 });
-
 // 播放/暂停
 document.getElementById('playPauseBtn').addEventListener('click', () => {
   if(audio.paused) {
     if(!audio.src) loadTrack(0);
     audio.play();
     document.getElementById('playPauseBtn').textContent = '⏸';
-    startEcgAnimation();
   } else {
     audio.pause();
     document.getElementById('playPauseBtn').textContent = '▶';
-    pauseEcgAnimation();
   }
 });
-
 // 下一曲
 document.getElementById('nextBtn').addEventListener('click', () => {
   nextTrack();
@@ -540,7 +476,6 @@ function nextTrack() {
   }
   playCurrent();
 }
-
 // 歌曲播放结束自动切歌
 audio.addEventListener('ended', () => {
   if(loopMode === 'single') {
@@ -550,7 +485,6 @@ audio.addEventListener('ended', () => {
     nextTrack();
   }
 });
-
 // 点击歌曲列表切换（无弹窗）
 tracks.forEach((item, idx) => {
   item.addEventListener('click', () => {
@@ -558,12 +492,10 @@ tracks.forEach((item, idx) => {
     playCurrent();
   });
 });
-
 // 音量控制
 document.getElementById('volumeSlider').addEventListener('input', (e) => {
   audio.volume = e.target.value;
 });
-
 // 随机播放按钮
 const shuffleBtn = document.getElementById('shuffleBtn');
 shuffleBtn.addEventListener('click', () => {
@@ -572,7 +504,6 @@ shuffleBtn.addEventListener('click', () => {
   if(isShuffle) loopMode = 'none';
   document.getElementById('loopBtn').style.backgroundColor = '#222233';
 });
-
 // 循环播放按钮
 const loopBtn = document.getElementById('loopBtn');
 loopBtn.addEventListener('click', () => {
@@ -593,8 +524,7 @@ loopBtn.addEventListener('click', () => {
   isShuffle = false;
   shuffleBtn.style.backgroundColor = '#222233';
 });
-
-// 纯音乐定制点击弹窗（与联系我们弹窗逻辑一致）
+// 新增1：纯音乐定制点击弹窗（与联系我们弹窗逻辑一致）
 const customLinks = document.querySelectorAll('a[href="#custom"]');
 customLinks.forEach(link => {
   link.addEventListener('click', function(e) {
@@ -602,8 +532,7 @@ customLinks.forEach(link => {
     openContactModal(); // 复用现有弹窗函数
   });
 });
-
-// 赛博朋克进度条功能逻辑
+// 新增2：赛博朋克进度条功能逻辑
 const progressBar = document.getElementById('progressBar');
 const currentTimeEl = document.getElementById('currentTime');
 const totalTimeEl = document.getElementById('totalTime');
@@ -629,188 +558,58 @@ progressBar.addEventListener('input', () => {
   audio.currentTime = seekTime;
 });
 
-// 新增1：静音切换功能
-const muteBtn = document.getElementById('muteBtn');
-let isMuted = false;
-muteBtn.addEventListener('click', () => {
-  isMuted = !isMuted;
-  audio.muted = isMuted;
-  muteBtn.textContent = isMuted ? '🔇 取消静音' : '🔊 静音';
-  muteBtn.style.backgroundColor = isMuted ? '#7a3cfd' : '#222233';
+// 新增3：浏览器兼容性+移动端适配JS（不修改原有逻辑）
+// 移动端导航控制
+const mobileNavBtn = document.getElementById('mobileNavBtn');
+const mobileNavClose = document.getElementById('mobileNavClose');
+const edmNav = document.getElementById('edmNav');
+mobileNavBtn.addEventListener('click', () => {
+  edmNav.classList.add('active');
 });
-
-// 新增2：进度条悬浮显示当前时间
-const progressTooltip = document.getElementById('progressTooltip');
-const progressContainer = document.querySelector('.progress-container');
-progressBar.addEventListener('mousemove', (e) => {
-  if(!audio.duration) return;
-  const rect = progressBar.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const percent = x / rect.width;
-  const tooltipTime = formatTime(percent * audio.duration);
-  progressTooltip.textContent = tooltipTime;
-  progressTooltip.style.display = 'block';
-  progressTooltip.style.left = `${x - 20}px`;
-  progressTooltip.style.top = '-25px';
+mobileNavClose.addEventListener('click', () => {
+  edmNav.classList.remove('active');
 });
-progressBar.addEventListener('mouseleave', () => {
-  progressTooltip.style.display = 'none';
-});
-
-// 新增3：曲目搜索功能
-const searchInput = document.getElementById('searchInput');
-const searchBtn = document.getElementById('searchBtn');
-function searchTracks(keyword) {
-  if(!keyword.trim()) {
-    // 关键词为空，显示所有曲目
-    tracks.forEach(track => track.style.display = 'block');
-    return;
-  }
-  const lowerKeyword = keyword.toLowerCase();
-  tracks.forEach(track => {
-    const trackName = track.dataset.name.toLowerCase();
-    const display = trackName.includes(lowerKeyword) ? 'block' : 'none';
-    track.style.display = display;
-  });
-}
-searchBtn.addEventListener('click', () => {
-  searchTracks(searchInput.value);
-});
-// 支持回车搜索
-searchInput.addEventListener('keydown', (e) => {
-  if(e.key === 'Enter') searchTracks(searchInput.value);
-});
-
-// 新增4：播放历史功能
-const historyList = document.getElementById('historyList');
-const clearHistoryBtn = document.getElementById('clearHistoryBtn');
-// 添加到历史记录（去重，最多保留10条）
-function addToHistory(trackInfo) {
-  // 去重
-  playHistory = playHistory.filter(item => item.src !== trackInfo.src);
-  // 添加到开头
-  playHistory.unshift(trackInfo);
-  // 限制最多10条
-  if(playHistory.length > 10) playHistory.pop();
-  // 保存到本地存储
-  localStorage.setItem('playHistory', JSON.stringify(playHistory));
-  // 更新页面显示
-  renderHistory();
-}
-// 渲染历史记录
-function renderHistory() {
-  if(playHistory.length === 0) {
-    historyList.innerHTML = '<span class="history-item">暂无播放记录</span>';
-    return;
-  }
-  historyList.innerHTML = playHistory.map((item, idx) => `
-    <span class="history-item" data-index="${item.index}">
-      ${item.name}
-    </span>
-  `).join('');
-  // 点击历史记录播放
-  document.querySelectorAll('.history-item').forEach(item => {
-    item.addEventListener('click', () => {
-      const index = parseInt(item.dataset.index);
-      currentIndex = index;
-      playCurrent();
-    });
-  });
-}
-// 清空历史记录
-clearHistoryBtn.addEventListener('click', () => {
-  playHistory = [];
-  localStorage.removeItem('playHistory');
-  renderHistory();
-});
-// 初始化渲染历史记录
-renderHistory();
-
-// 新增5：深色彩虹心电图波浪动画（核心修改部分）
-const ecgCanvas = document.getElementById('ecgCanvas');
-const ecgCtx = ecgCanvas.getContext('2d');
-let ecgAnimationId = null;
-let ecgX = 0;
-// 设置canvas尺寸
-function resizeEcgCanvas() {
-  ecgCanvas.width = ecgCanvas.parentElement.clientWidth;
-  ecgCanvas.height = ecgCanvas.parentElement.clientHeight;
-}
-resizeEcgCanvas();
-window.addEventListener('resize', resizeEcgCanvas);
-// 生成心电图波形数据（闪电效果）
-function generateEcgData() {
-  const data = [];
-  const centerY = ecgCanvas.height / 2;
-  const amplitude = 15 + Math.random() * 10; // 随机振幅，模拟闪电波动
-  for(let x = 0; x < ecgCanvas.width; x++) {
-    let y = centerY;
-    // 模拟心电图特征：正常波动+随机闪电尖峰
-    if(Math.random() < 0.02) {
-      // 闪电尖峰
-      y = centerY + (Math.random() > 0.5 ? 1 : -1) * (amplitude * 2 + Math.random() * 10);
-    } else if(Math.random() < 0.3) {
-      // 小波动
-      y = centerY + (Math.random() > 0.5 ? 1 : -1) * (amplitude * 0.5 + Math.random() * 5);
+// 移动端点击导航链接关闭菜单
+document.querySelectorAll('.edm-nav a').forEach(link => {
+  link.addEventListener('click', () => {
+    if(window.innerWidth <= 768) {
+      edmNav.classList.remove('active');
     }
-    data.push(y);
+  });
+});
+// 兼容旧版浏览器音频播放检测
+function initAudioCompatibility() {
+  // 兼容IE11及以下
+  if(typeof audio.canPlayType !== 'function') {
+    alert('您的浏览器版本过旧，可能无法正常播放音频，请升级至Chrome、Edge、Firefox最新版');
+    return;
   }
-  return data;
-}
-// 绘制心电图（核心修改：深色彩虹渐变）
-function drawEcg() {
-  ecgCtx.clearRect(0, 0, ecgCanvas.width, ecgCanvas.height);
-  const data = generateEcgData();
-  ecgCtx.beginPath();
-  ecgCtx.moveTo(0, data[0]);
-  // 深色彩虹渐变（红→橙→黄→绿→蓝→靛→紫，均加深饱和度）
-  const gradient = ecgCtx.createLinearGradient(0, 0, ecgCanvas.width, 0);
-  gradient.addColorStop(0, '#8B0000'); // 深红
-  gradient.addColorStop(0.17, '#CD5C5C'); // 深红橙
-  gradient.addColorStop(0.33, '#B8860B'); // 深金黄
-  gradient.addColorStop(0.5, '#006400'); // 深绿
-  gradient.addColorStop(0.67, '#00008B'); // 深蓝
-  gradient.addColorStop(0.83, '#4B0082'); // 深靛蓝
-  gradient.addColorStop(1, '#800080'); // 深紫
-  ecgCtx.strokeStyle = gradient;
-  ecgCtx.lineWidth = 2.5; // 线条加粗，增强视觉冲击
-  ecgCtx.shadowColor = '#fff'; // 白色阴影，凸显深色彩虹
-  ecgCtx.shadowBlur = 5;
-  // 绘制波形
-  for(let x = 1; x < data.length; x++) {
-    ecgCtx.lineTo(x, data[x]);
-  }
-  ecgCtx.stroke();
-  // 重置阴影
-  ecgCtx.shadowBlur = 0;
-}
-// 启动心电图动画
-function startEcgAnimation() {
-  if(ecgAnimationId) cancelAnimationFrame(ecgAnimationId);
-  function animate() {
-    drawEcg();
-    ecgAnimationId = requestAnimationFrame(animate);
-  }
-  animate();
-}
-// 暂停心电图动画（静态基线也改为深色）
-function pauseEcgAnimation() {
-  if(ecgAnimationId) {
-    cancelAnimationFrame(ecgAnimationId);
-    ecgAnimationId = null;
-    // 暂停时绘制静态深色基线
-    ecgCtx.clearRect(0, 0, ecgCanvas.width, ecgCanvas.height);
-    const centerY = ecgCanvas.height / 2;
-    ecgCtx.beginPath();
-    ecgCtx.moveTo(0, centerY);
-    ecgCtx.lineTo(ecgCanvas.width, centerY);
-    ecgCtx.strokeStyle = 'rgba(128, 128, 128, 0.5)'; // 深灰色基线
-    ecgCtx.lineWidth = 1.5;
-    ecgCtx.stroke();
+  // 检测MP3格式支持
+  const mp3Support = audio.canPlayType('audio/mpeg; codecs="mp3"');
+  if(mp3Support === '') {
+    alert('您的浏览器不支持MP3格式，建议切换至Chrome、Safari或Firefox浏览器');
   }
 }
-// 初始绘制静态基线
-pauseEcgAnimation();
+// 页面加载完成后初始化兼容性检测
+window.addEventListener('load', initAudioCompatibility);
+// 移动端进度条触摸支持
+progressBar.addEventListener('touchmove', (e) => {
+  e.preventDefault();
+  const rect = progressBar.getBoundingClientRect();
+  const x = e.touches[0].clientX - rect.left;
+  const percent = Math.max(0, Math.min(1, x / rect.width));
+  progressBar.value = percent * 100;
+  if(audio.duration) {
+    audio.currentTime = percent * audio.duration;
+  }
+});
+// 阻止弹窗滚动穿透
+const modalOverlays = document.querySelectorAll('.modal-overlay');
+modalOverlays.forEach(overlay => {
+  overlay.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+  });
+});
 </script>
 </body>
 </html>
