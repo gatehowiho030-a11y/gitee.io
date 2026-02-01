@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>苏玖suon独家打造 | 氛围·情绪·热血纯音乐合集 | 原创纯音乐定制</title>
-    <meta name="keywords" content="苏玖suon,纯音乐,纯音乐定制,原创纯音乐,纯音乐合集,背景音乐,版权纯音乐,商用BGM">
-    <meta name="description" content="苏玖suon独家打造，专注原创纯音乐创作，氛围、情绪、热血全风格纯音乐在线试听，付费版权授权后可下载使用，承接各类纯音乐定制需求。">
+    <title>苏玖suno独家打造 | 氛围·情绪·热血纯音乐合集 | 原创纯音乐定制</title>
+    <meta name="keywords" content="苏玖suno,纯音乐,纯音乐定制,原创纯音乐,纯音乐合集,背景音乐,版权纯音乐,商用BGM">
+    <meta name="description" content="苏玖suno独家打造，专注原创纯音乐创作，氛围、情绪、热血全风格纯音乐在线试听，付费版权授权后可下载使用，承接各类纯音乐定制需求。">
     <link rel="stylesheet" href="style.css">
     <style>
         /* 赛博朋克进度条样式（直接内嵌，也可复制到style.css） */
@@ -183,6 +183,253 @@
             display: -ms-flexbox;
             display: flex;
         }
+        /* #################### 新增赛博朋克电音风格核心样式 #################### */
+        :root {
+            --cyber-pink: #ff00ff;
+            --cyber-cyan: #00ffff;
+            --cyber-dark: #0a0a1a;
+            --cyber-glow-pink: 0 0 8px var(--cyber-pink), 0 0 16px var(--cyber-pink);
+            --cyber-glow-cyan: 0 0 8px var(--cyber-cyan), 0 0 16px var(--cyber-cyan);
+        }
+        /* 全局背景 */
+        body {
+            background-color: var(--cyber-dark);
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(0,255,255,0.1) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(255,0,255,0.1) 0%, transparent 20%),
+                repeating-linear-gradient(rgba(122,60,253,0.05) 1px, transparent 2px);
+        }
+        /* 头部导航 */
+        .edm-header {
+            background: rgba(10,10,26,0.95);
+            border-bottom: 2px solid var(--cyber-cyan);
+            box-shadow: 0 0 15px rgba(0,255,255,0.3);
+        }
+        .edm-logo {
+            color: var(--cyber-cyan);
+            text-shadow: var(--cyber-glow-cyan);
+            letter-spacing: 2px;
+        }
+        .edm-logo span {
+            color: var(--cyber-pink);
+            text-shadow: var(--cyber-glow-pink);
+        }
+        .edm-nav a {
+            color: #fff;
+            position: relative;
+            transition: all 0.3s;
+        }
+        .edm-nav a:hover {
+            color: var(--cyber-cyan);
+            text-shadow: var(--cyber-glow-cyan);
+        }
+        .edm-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--cyber-pink), var(--cyber-cyan));
+            transition: width 0.3s;
+        }
+        .edm-nav a:hover::after {
+            width: 100%;
+        }
+        /* 首屏Banner */
+        .edm-hero {
+            background: linear-gradient(rgba(10,10,26,0.8), rgba(10,10,26,0.9)), 
+                        url('./images/cyberpunk-banner.jpg') center/cover no-repeat;
+            border-bottom: 2px solid var(--cyber-pink);
+            position: relative;
+            overflow: hidden;
+        }
+        .edm-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(transparent 0px, rgba(0,255,255,0.05) 1px, transparent 2px);
+            z-index: 1;
+        }
+        .edm-hero-inner {
+            position: relative;
+            z-index: 2;
+        }
+        .edm-title {
+            color: #fff;
+            text-shadow: 0 0 10px var(--cyber-pink), 0 0 20px var(--cyber-cyan);
+        }
+        .edm-title span {
+            color: var(--cyber-pink);
+        }
+        .edm-subtitle {
+            color: #e0e0ff;
+            text-shadow: 0 0 5px rgba(0,255,255,0.5);
+        }
+        .btn {
+            transition: all 0.3s;
+        }
+        .edm-btn-primary {
+            background: linear-gradient(90deg, var(--cyber-pink), #7a3cfd);
+            color: #fff;
+            box-shadow: var(--cyber-glow-pink);
+        }
+        .edm-btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px var(--cyber-pink), 0 0 25px rgba(255,0,255,0.7);
+        }
+        .edm-btn-secondary {
+            background: transparent;
+            color: var(--cyber-cyan);
+            border: 2px solid var(--cyber-cyan);
+            box-shadow: var(--cyber-glow-cyan);
+        }
+        .edm-btn-secondary:hover {
+            background: rgba(0,255,255,0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px var(--cyber-cyan), 0 0 25px rgba(0,255,255,0.7);
+        }
+        /* 播放器区域 */
+        .edm-player-section {
+            background: linear-gradient(rgba(10,10,26,0.9), rgba(15,15,40,0.95)), 
+                        url('./images/cyberpunk-circuit.jpg') center/cover no-repeat;
+            border-bottom: 2px solid var(--cyber-cyan);
+        }
+        .edm-section-title {
+            color: var(--cyber-cyan);
+            text-shadow: var(--cyber-glow-cyan);
+            position: relative;
+        }
+        .edm-section-title::after {
+            content: '';
+            display: block;
+            width: 150px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cyber-pink), transparent);
+            margin: 10px auto;
+            box-shadow: var(--cyber-glow-pink);
+        }
+        .visualizer-wrapper {
+            background: rgba(10,10,26,0.7);
+            border: 1px solid var(--cyber-cyan);
+            border-radius: 8px;
+            box-shadow: var(--cyber-glow-cyan);
+            overflow: hidden;
+        }
+        .global-player {
+            background: rgba(10,10,26,0.8);
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--cyber-pink);
+            box-shadow: var(--cyber-glow-pink);
+        }
+        .player-info #currentTrackName {
+            color: var(--cyber-cyan);
+            text-shadow: var(--cyber-glow-cyan);
+        }
+        .player-info #currentmp3 {
+            color: var(--cyber-pink);
+            text-shadow: var(--cyber-glow-pink);
+        }
+        .ctrl-btn {
+            background: rgba(122,60,253,0.2);
+            color: #fff;
+            border: 1px solid #7a3cfd;
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(122,60,253,0.5);
+            transition: all 0.3s;
+        }
+        .ctrl-btn:hover {
+            background: #7a3cfd;
+            box-shadow: 0 0 10px #7a3cfd, 0 0 15px rgba(122,60,253,0.7);
+            transform: translateY(-2px);
+        }
+        .play-btn {
+            background: linear-gradient(90deg, var(--cyber-pink), var(--cyber-cyan));
+            border: none;
+            box-shadow: var(--cyber-glow-pink), var(--cyber-glow-cyan);
+        }
+        .play-btn:hover {
+            background: linear-gradient(90deg, var(--cyber-cyan), var(--cyber-pink));
+            box-shadow: 0 0 15px var(--cyber-pink), 0 0 20px var(--cyber-cyan);
+        }
+        .volume-wrapper {
+            color: var(--cyber-cyan);
+            text-shadow: var(--cyber-glow-cyan);
+        }
+        #volumeSlider {
+            background: linear-gradient(90deg, var(--cyber-pink) 0%, var(--cyber-cyan) 100%);
+            box-shadow: var(--cyber-glow-pink), var(--cyber-glow-cyan);
+        }
+        #volumeSlider::-webkit-slider-thumb {
+            background: #fff;
+            border: 2px solid var(--cyber-cyan);
+            box-shadow: var(--cyber-glow-cyan);
+        }
+        /* 定制、版权、联系区域 */
+        .custom-section, .copyright-section, .contact-section {
+            background: rgba(10,10,26,0.95);
+            border-bottom: 2px solid var(--cyber-cyan);
+        }
+        .custom-desc-box, .copyright-box, .contact-card {
+            background: rgba(15,15,40,0.8);
+            border-radius: 8px;
+            border: 1px solid var(--cyber-pink);
+            box-shadow: var(--cyber-glow-pink);
+        }
+        .custom-desc-box strong, .copyright-box strong, .contact-card strong {
+            color: var(--cyber-cyan);
+            text-shadow: var(--cyber-glow-cyan);
+        }
+        .step-item {
+            background: rgba(10,10,26,0.7);
+            border: 1px solid #7a3cfd;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(122,60,253,0.3);
+            transition: all 0.3s;
+        }
+        .step-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px #7a3cfd, 0 0 20px rgba(122,60,253,0.5);
+            border-color: var(--cyber-cyan);
+        }
+        .step-num {
+            background: linear-gradient(90deg, var(--cyber-pink), var(--cyber-cyan));
+            color: #fff;
+            box-shadow: var(--cyber-glow-pink), var(--cyber-glow-cyan);
+        }
+        /* 弹窗样式 */
+        .modal-content {
+            background: rgba(15,15,40,0.95);
+            border: 2px solid var(--cyber-cyan);
+            border-radius: 8px;
+            box-shadow: var(--cyber-glow-pink), var(--cyber-glow-cyan);
+        }
+        .modal-close {
+            color: var(--cyber-pink);
+            text-shadow: var(--cyber-glow-pink);
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .modal-tip .highlight {
+            color: var(--cyber-pink);
+            text-shadow: var(--cyber-glow-pink);
+        }
+        .wechat-info strong {
+            color: var(--cyber-cyan);
+            text-shadow: var(--cyber-glow-cyan);
+        }
+        /* 页脚 */
+        .edm-footer {
+            background: rgba(10,10,26,0.95);
+            border-top: 2px solid var(--cyber-pink);
+            color: #e0e0ff;
+        }
     </style>
 </head>
 <body>
@@ -191,9 +438,9 @@
     <div class="modal-overlay" id="modalOverlay"></div>
     <div class="modal-content">
         <button class="modal-close" id="closeModal">×</button>
-        <h3>🎵 苏玖suon独家打造 | 版权购买提示</h3>
+        <h3>🎵 苏玖suno独家打造 | 版权购买提示</h3>
         <div class="modal-tip">
-            本站所有音乐均为<strong>苏玖suon独家打造·100%原创独立版权</strong>作品，<br>
+            本站所有音乐均为<strong>苏玖suno独家打造·100%原创独立版权</strong>作品，<br>
             <span class="highlight">仅提供在线免费试听，添加原创者购买音乐版权后方可下载</span>
         </div>
         <div class="wechat-info">
@@ -209,15 +456,15 @@
     <div class="modal-overlay" id="contactOverlay"></div>
     <div class="modal-content">
         <button class="modal-close" id="closeContactModal">×</button>
-        <h3>🤝 苏玖suon独家打造 | 联系我们 / 商业合作</h3>
+        <h3>🤝 苏玖suno独家打造 | 联系我们 / 商业合作</h3>
         <div class="modal-tip">
-            如需<strong>苏玖suon原创音乐定制、版权采购、商用授权、项目合作</strong>，<br>
+            如需<strong>苏玖suno原创音乐定制、版权采购、商用授权、项目合作</strong>，<br>
             <span class="highlight">可通过以下方式直接联系原创者，洽谈相关合作事宜</span>
         </div>
         <div class="wechat-info">
             <p>📞 工作微信：<strong>sjzbdpd</strong>（添加请备注：歌曲定制）</p>
             <p>📧 QQ 邮箱：<strong>2210301559@qq.com</strong></p>
-            <p>💼 合作范围：苏玖suon原创音乐定制、版权售卖、影视/短视频/游戏配乐、商用授权</p>
+            <p>💼 合作范围：苏玖suno原创音乐定制、版权售卖、影视/短视频/游戏配乐、商用授权</p>
         </div>
     </div>
 </div>
@@ -226,7 +473,7 @@
   <div class="edm-container">
     <div class="header-flex">
       <div class="edm-logo">
-        <span>苏玖suon</span> EXCLUSIVE
+        <span>苏玖suno</span> EXCLUSIVE
       </div>
       <!-- 新增移动端汉堡菜单按钮 -->
       <button class="mobile-nav-btn" id="mobileNavBtn">☰</button>
@@ -245,8 +492,8 @@
 <!-- 首屏Banner -->
 <section class="edm-hero">
   <div class="edm-container edm-hero-inner">
-    <h1 class="edm-title">苏玖suon <span>EXCLUSIVE</span></h1>
-    <p class="edm-subtitle">苏玖suon独家打造 | 氛围·情绪·热血纯音乐合集在线试听 | 专注原创定制 | 正版版权可授权</p>
+    <h1 class="edm-title">苏玖suno <span>EXCLUSIVE</span></h1>
+    <p class="edm-subtitle">苏玖suno独家打造 | 氛围·情绪·热血纯音乐合集在线试听 | 专注原创定制 | 正版版权可授权</p>
     <div class="edm-buttons">
       <a href="#collection" class="btn edm-btn-primary">进入合集</a>
       <a href="#custom" class="btn edm-btn-secondary">定制纯音乐</a>
@@ -256,7 +503,7 @@
 <!-- 全局波形播放器 -->
 <section id="player-section" class="edm-player-section">
   <div class="edm-container">
-    <h2 class="edm-section-title">🎧 苏玖suon独家打造 | 全局试听播放器</h2>
+    <h2 class="edm-section-title">🎧 苏玖suno独家打造 | 全局试听播放器</h2>
     <div class="visualizer-wrapper">
       <canvas id="waveVisualizer"></canvas>
     </div>
@@ -287,28 +534,30 @@
     </div>
   </div>
 </section>
-<!-- 纯音乐总合集 -->
+<!-- 纯音乐总合集（支持直接新增track-item，点击自动播放） -->
 <section id="collection" class="collection-section">
   <div class="edm-container">
-    <h2 class="edit-section-title">📀 苏玖suon独家打造 | 氛围·情绪·热血纯音乐合集</h2>
+    <h2 class="edit-section-title">📀 苏玖suno独家打造 | 氛围·情绪·热血纯音乐合集</h2>
     <div class="collection-single-wrapper">
       <div class="collection-card">
         <div class="card-neon-border"></div>
         <div class="collection-cover">
-          <img src="./cover/collection-main.jpg" alt="苏玖suon独家合集封面">
+          <img src="./cover/collection-main.jpg" alt="苏玖suno独家合集封面">
         </div>
         <div class="collection-info">
-          <h3>苏玖suon独家 | 全风格原创纯音乐总合集</h3>
-          <p class="collection-desc">本合集由苏玖suon独家打造，包含氛围感、情绪向、高燃热血三大类纯音乐，适配情感短片、场景营造、高光混剪、励志宣传片、沉浸式视频、Vlog等全场景商用配乐</p>
-            <div class="track-item" data-src="./music/track1.mp3" data-name="灵魂动感电音【苏玖suon独家】" data-mp3="1">
+          <h3>苏玖suno独家 | 全风格原创纯音乐总合集</h3>
+          <p class="collection-desc">本合集由苏玖suno独家打造，包含氛围感、情绪向、高燃热血三大类纯音乐，适配情感短片、场景营造、高光混剪、励志宣传片、沉浸式视频、Vlog等全场景商用配乐</p>
+            <!-- 现有歌曲 -->
+            <div class="track-item" data-src="./music/track1.mp3" data-name="灵魂动感电音【苏玖suno独家】" data-mp3="1">
               <span class="track-num">01</span>
-              <span class="track-name">灵魂动感电音【热血向 | 苏玖suon独家】</span>
+              <span class="track-name">灵魂动感电音【热血向 | 苏玖suno独家】</span>
             </div>
-            <div class="track-item" data-src="./music/track2.mp3" data-name="心灵爆炸电音【苏玖suon独家】" data-mp3="1">
+            <div class="track-item" data-src="./music/track2.mp3" data-name="心灵爆炸电音【苏玖suno独家】" data-mp3="1">
               <span class="track-num">02</span>
-               <span class="track-name">心灵爆炸电音【热血向 | 苏玖suon独家】</span>
+               <span class="track-name">心灵爆炸电音【热血向 | 苏玖suno独家】</span>
             </div>
-   
+            <!-- 后续新增歌曲：直接复制上方track-item结构即可，无需额外加JS -->
+       
             </div>
         </div>
       </div>
@@ -318,31 +567,31 @@
 <!-- 纯音乐定制 -->
 <section id="custom" class="custom-section">
   <div class="edm-container">
-    <h2 class="edm-section-title">🎹 苏玖suon独家打造 | 原创音乐定制服务</h2>
+    <h2 class="edm-section-title">🎹 苏玖suno独家打造 | 原创音乐定制服务</h2>
     <div class="custom-desc-box">
-      <p>本站由<strong>苏玖suon独家承接纯音乐定制</strong>，不含人声、说唱、歌曲填词等业务，专注高品质原创纯音乐创作。</p>
+      <p>本站由<strong>苏玖suno独家承接纯音乐定制</strong>，不含人声、说唱、歌曲填词等业务，专注高品质原创纯音乐创作。</p>
       <p>可定制风格：氛围感、情绪向、高燃热血、古风纯音、影视/短视频/游戏配乐、宣传片配乐等。</p>
     </div>
     <div class="custom-steps">
       <div class="step-item">
         <div class="step-num">01</div>
         <h4>需求沟通</h4>
-        <p>明确用途、时长、情绪、风格、参考曲，确定苏玖suon原创创作方向与交付标准</p>
+        <p>明确用途、时长、情绪、风格、参考曲，确定苏玖suno原创创作方向与交付标准</p>
       </div>
       <div class="step-item">
         <div class="step-num">02</div>
         <h4>原创编曲</h4>
-        <p>苏玖suon100%原创旋律与编曲，无采样无抄袭，使用专业音色工程制作</p>
+        <p>苏玖suno100%原创旋律与编曲，无采样无抄袭，使用专业音色工程制作</p>
       </div>
       <div class="step-item">
         <div class="step-num">03</div>
         <h4>Demo试听</h4>
-        <p>提供苏玖suon原创初稿Demo，支持合理调整，确认后进入终版混音与母带</p>
+        <p>提供苏玖suno原创初稿Demo，支持合理调整，确认后进入终版混音与母带</p>
       </div>
       <div class="step-item">
         <div class="step-num">04</div>
         <h4>成品交付</h4>
-        <p>交付苏玖suon原创高音质MP3/WAV分轨文件，附带商用授权协议，永久可用</p>
+        <p>交付苏玖suno原创高音质MP3/WAV分轨文件，附带商用授权协议，永久可用</p>
       </div>
     </div>
   </div>
@@ -350,31 +599,31 @@
 <!-- 版权说明 -->
 <section id="copyright" class="copyright-section">
   <div class="edm-container">
-    <h2 class="edm-section-title">⚖️ 苏玖suon独家打造 | 版权与使用规则</h2>
+    <h2 class="edm-section-title">⚖️ 苏玖suno独家打造 | 版权与使用规则</h2>
     <div class="copyright-box">
-      <p>1. 本站所有纯音乐作品均为<strong>苏玖suon独家创作·100%独立原创</strong>，拥有完整工程文件、分轨与著作权，受《中华人民共和国著作权法》保护。</p>
+      <p>1. 本站所有纯音乐作品均为<strong>苏玖suno独家创作·100%独立原创</strong>，拥有完整工程文件、分轨与著作权，受《中华人民共和国著作权法》保护。</p>
       <p>2. 网站内所有纯音乐<strong>仅提供在线免费试听</strong>，未经付费购买版权，禁止下载、复制、传播、二次改编、商用使用。</p>
-      <p>3. 付费购买/定制后，获得<strong>苏玖suon原创非独家永久商用授权</strong>，可用于短视频、直播、影视、广告、游戏、宣传片等场景。</p>
+      <p>3. 付费购买/定制后，获得<strong>苏玖suno原创非独家永久商用授权</strong>，可用于短视频、直播、影视、广告、游戏、宣传片等场景。</p>
       <p>4. 禁止私自扒取、录屏、提取音频、去除水印、转售授权等侵权行为，违者追究法律责任。</p>
-      <p>5. 授权范围、使用场景、苏玖suon专属定制可联系客服详细洽谈，支持个性化授权方案。</p>
+      <p>5. 授权范围、使用场景、苏玖suno专属定制可联系客服详细洽谈，支持个性化授权方案。</p>
     </div>
   </div>
 </section>
 <!-- 联系我们 -->
 <section id="contact" class="contact-section">
   <div class="edm-container">
-    <h2 class="edm-section-title contact-link">📩 苏玖suon独家 | 定制咨询 & 版权购买</h2>
+    <h2 class="edm-section-title contact-link">📩 苏玖suno独家 | 定制咨询 & 版权购买</h2>
     <div class="contact-card">
       <p><strong>工作微信</strong>：sjzbdpd（添加请备注：版权购买）</p>
       <p><strong>商务QQ邮箱</strong>：2210301559@qq.com</p>
-      <p><strong>服务范围</strong>：苏玖suon原创纯音乐定制、单曲/专辑版权采购、商用永久授权、影视/短视频专属配乐</p>
+      <p><strong>服务范围</strong>：苏玖suno原创纯音乐定制、单曲/专辑版权采购、商用永久授权、影视/短视频专属配乐</p>
       <p><strong>不承接</strong>：人声翻唱、填词、非原创改编、侵权音频制作等业务</p>
     </div>
   </div>
 </section>
 <footer class="edm-footer">
   <div class="edm-container">
-    <p>© 2026 苏玖suon独家原创纯音乐版权站 · 所有音乐作品均受版权保护 · 仅限试听</p>
+    <p>© 2026 苏玖suno独家原创纯音乐版权站 · 所有音乐作品均受版权保护 · 仅限试听</p>
   </div>
 </footer>
 <script src="script.js"></script>
@@ -490,13 +739,6 @@ audio.addEventListener('ended', () => {
   } else {
     nextTrack();
   }
-});
-// 点击歌曲列表切换（无弹窗）- 保留原有逻辑，与新增逻辑互补
-tracks.forEach((item, idx) => {
-  item.addEventListener('click', () => {
-    currentIndex = idx;
-    playCurrent();
-  });
 });
 // 音量控制
 document.getElementById('volumeSlider').addEventListener('input', (e) => {
@@ -615,34 +857,38 @@ modalOverlays.forEach(overlay => {
     e.preventDefault();
   });
 });
-
-// #################### 新增核心功能：动态获取歌曲+点击即播 ####################
-// 动态获取最新歌曲列表（支持新增歌曲自动识别）
+// #################### 核心优化：所有歌曲（含新增）点击即播 ####################
+// 动态获取最新歌曲列表（自动识别所有.track-item，包括后续新增的）
 function getLatestTracks() {
   return Array.from(document.querySelectorAll('.track-item'));
 }
+// 事件委托：监听整个文档中的.track-item点击（无需绑定到单个元素，支持新增）
+document.addEventListener('click', function(e) {
+  // 只处理带有.track-item类的元素点击
+  const targetTrack = e.target.closest('.track-item');
+  if (!targetTrack) return;
 
-// 事件委托监听歌曲点击（含新增歌曲，不影响原有逻辑）
-document.addEventListener('DOMContentLoaded', function() {
-  document.querySelector('.collection-info').addEventListener('click', function(e) {
-    const targetTrack = e.target.closest('.track-item');
-    if (!targetTrack) return;
-    
-    // 获取最新歌曲列表并定位索引
-    const allTracks = getLatestTracks();
-    const clickIndex = allTracks.indexOf(targetTrack);
-    
-    // 触发播放（复用原有逻辑，确保功能统一）
-    currentIndex = clickIndex;
-    loadTrack(clickIndex);
-    audio.load(); // 强制加载，消除卡顿
-    audio.play().catch(err => {
-      if (err.name === 'NotAllowedError') {
-        alert('请先点击播放器播放按钮激活音频权限~');
-      }
-    });
-    document.getElementById('playPauseBtn').textContent = '⏸';
+  // 1. 定位当前点击歌曲在列表中的索引
+  const allTracks = getLatestTracks();
+  currentIndex = allTracks.indexOf(targetTrack);
+
+  // 2. 加载并播放歌曲（复用原有loadTrack逻辑，确保风格统一）
+  loadTrack(currentIndex);
+  audio.load(); // 强制加载音频，消除切换延迟
+  audio.play().catch(err => {
+    // 处理浏览器自动播放限制
+    if (err.name === 'NotAllowedError') {
+      alert('请先点击播放器的「▶」按钮激活音频权限~');
+      // 激活权限后自动播放当前选中歌曲
+      document.getElementById('playPauseBtn').addEventListener('click', function autoPlayAfterAuth() {
+        audio.play();
+        this.removeEventListener('click', autoPlayAfterAuth); // 只执行一次
+      }, { once: true });
+    }
   });
+
+  // 3. 更新播放按钮状态
+  document.getElementById('playPauseBtn').textContent = '⏸';
 });
 </script>
 </body>
