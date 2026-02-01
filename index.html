@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -79,6 +80,138 @@
             box-shadow: 0 0 12px #ff00ff, inset 0 0 8px rgba(0, 255, 255, 0.5);
             z-index: -1;
         }
+
+        /* 1：当前播放曲目高亮动画 */
+        .track-item.active {
+            background-color: #222233 !important;
+            border-left: 3px solid #00ffff;
+            padding-left: 8px;
+            animation: neonPulse 1.5s infinite alternate;
+            cursor: pointer;
+        }
+        @keyframes neonPulse {
+            from { box-shadow: 0 0 5px #00ffff, 0 0 10px rgba(0, 255, 255, 0.3); }
+            to { box-shadow: 0 0 10px #00ffff, 0 0 20px rgba(0, 255, 255, 0.6), 0 0 30px rgba(0, 255, 255, 0.4); }
+        }
+        .track-name { color: #fff; }
+        .track-item.active .track-name { color: #00ff9d; text-shadow: 0 0 6px #00ff9d; }
+
+        /* 2：进度条悬浮时间提示 */
+        .progress-tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: #00ff9d;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-family: 'Courier New', monospace;
+            display: none;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* 3：曲目搜索框样式 */
+        .search-container {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+        }
+        #searchInput {
+            flex: 1;
+            padding: 10px 15px;
+            border: 2px solid #00ffff;
+            border-radius: 4px;
+            background: #111;
+            color: #00ff9d;
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.5), inset 0 0 6px rgba(0, 0, 0, 0.8);
+            outline: none;
+        }
+        #searchInput::placeholder {
+            color: #00ff9d80;
+        }
+        #searchBtn {
+            padding: 0 20px;
+            background: linear-gradient(90deg, #ff00ff 0%, #00ffff 100%);
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 10px #ff00ff, 0 0 15px rgba(0, 255, 255, 0.7);
+            transition: all 0.2s ease;
+        }
+        #searchBtn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #ff00ff, 0 0 20px rgba(0, 255, 255, 0.9);
+        }
+
+        /* 4：播放历史样式 */
+        .history-section {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px solid #7a3cfd;
+            border-radius: 8px;
+            background: rgba(122, 60, 253, 0.1);
+            box-shadow: 0 0 15px rgba(122, 60, 253, 0.3);
+        }
+        .history-title {
+            color: #00ffff;
+            margin-bottom: 15px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .history-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .history-item {
+            padding: 6px 12px;
+            background: #222;
+            border: 1px solid #00ffff;
+            border-radius: 20px;
+            color: #00ff9d;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .history-item:hover {
+            background: #7a3cfd;
+            box-shadow: 0 0 8px #00ffff;
+        }
+        .clear-history {
+            margin-top: 15px;
+            padding: 6px 12px;
+            background: transparent;
+            border: 1px solid #ff00ff;
+            border-radius: 4px;
+            color: #ff00ff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .clear-history:hover {
+            background: rgba(255, 0, 255, 0.2);
+            box-shadow: 0 0 8px #ff00ff;
+        }
+
+        /* 5：闪电心电图波浪容器样式（保持不变） */
+        .ecg-container {
+            width: 100%;
+            height: 80px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 10px #00ffff, inset 0 0 6px rgba(0, 0, 0, 0.8);
+        }
+        #ecgCanvas {
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body>
@@ -152,23 +285,25 @@
     </div>
   </div>
 </section>
-<!-- 全局波形播放器 -->
+<!-- 全局波形播放器（已删除炫彩波浪，新增心电图波浪） -->
 <section id="player-section" class="edm-player-section">
   <div class="edm-container">
     <h2 class="edm-section-title">🎧 苏玖suon独家打造 | 全局试听播放器</h2>
-    <div class="visualizer-wrapper">
-      <canvas id="waveVisualizer"></canvas>
+    <!-- 新增：闪电心电图波浪容器 -->
+    <div class="ecg-container">
+      <canvas id="ecgCanvas"></canvas>
     </div>
     <div class="global-player">
       <div class="player-info">
-        <span id="currentTrackName">请选择曲目开始播放</span> <!-- 修复原ID错误 -->
+        <span id="currentTrackName">请选择曲目开始播放</span>
         <span id="currentmp3">-- mp3</span>
       </div>
-      <!-- 新增赛博朋克进度条 -->
+      <!-- 赛博朋克进度条（含悬浮提示） -->
       <div class="progress-container">
         <span id="currentTime">00:00</span>
         <input type="range" id="progressBar" min="0" max="100" value="0" step="0.1">
         <span id="totalTime">00:00</span>
+        <div class="progress-tooltip" id="progressTooltip"></div>
       </div>
       <!-- 进度条结束 -->
       <div class="player-controls">
@@ -176,6 +311,7 @@
         <button id="playPauseBtn" class="ctrl-btn play-btn">▶</button>
         <button id="nextBtn" class="ctrl-btn">⏭</button>
         <button class="ctrl-btn download-in-player" id="globalDownloadBtn">⬇ 下载</button>
+        <button id="muteBtn" class="ctrl-btn mode-btn">🔊 静音</button>
         <button id="shuffleBtn" class="ctrl-btn mode-btn">🔀 随机</button>
         <button id="loopBtn" class="ctrl-btn mode-btn">🔁 循环</button>
       </div>
@@ -186,10 +322,15 @@
     </div>
   </div>
 </section>
-<!-- 纯音乐总合集 -->
+<!-- 纯音乐总合集（新增搜索功能） -->
 <section id="collection" class="collection-section">
   <div class="edm-container">
     <h2 class="edit-section-title">📀 苏玖suon独家打造 | 氛围·情绪·热血纯音乐合集</h2>
+    <!-- 新增：曲目搜索框 -->
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="搜索曲目名称...（支持关键词）">
+      <button id="searchBtn">🔍 搜索</button>
+    </div>
     <div class="collection-single-wrapper">
       <div class="collection-card">
         <div class="card-neon-border"></div>
@@ -201,13 +342,27 @@
           <p class="collection-desc">本合集由苏玖suon独家打造，包含氛围感、情绪向、高燃热血三大类纯音乐，适配情感短片、场景营造、高光混剪、励志宣传片、沉浸式视频、Vlog等全场景商用配乐</p>
             <div class="track-item" data-src="./music/track1.mp3" data-name="灵魂动感电音【苏玖suon独家】" data-mp3="1">
               <span class="track-num">01</span>
-
               <span class="track-name">灵魂动感电音【热血向 | 苏玖suon独家】</span>
-
-              <div class="track-item" data-src="./music/track2.mp3" data-name="心灵爆炸电音【苏玖suon独家】" data-mp3="1">
+            </div>
+            <div class="track-item" data-src="./music/track2.mp3" data-name="心灵爆炸电音【苏玖suon独家】" data-mp3="1">
               <span class="track-num">02</span>
+              <span class="track-name">心灵爆炸电音【热血向 | 苏玖suon独家】</span>
+            </div>
 
-               <span class="track-name">心灵爆炸电音【热血向 | 苏玖suon独家】</span>
+            </div>
+        </div>
+      </div>
+    </div>
+    <!-- 新增：播放历史记录 -->
+    <div class="history-section">
+      <h3 class="history-title">📜 播放历史</h3>
+      <div class="history-list" id="historyList">
+        <!-- 历史记录将通过JS动态生成 -->
+        <span class="history-item">暂无播放记录</span>
+      </div>
+      <button class="clear-history" id="clearHistoryBtn">清空历史</button>
+    </div>
+  </div>
 </section>
 <!-- 纯音乐定制 -->
 <section id="custom" class="custom-section">
@@ -279,6 +434,9 @@ const tracks = Array.from(document.querySelectorAll('.track-item'));
 let currentIndex = 0;
 let isShuffle = false;    
 let loopMode = 'none';    
+// 播放历史存储（本地存储持久化）
+let playHistory = JSON.parse(localStorage.getItem('playHistory')) || [];
+
 // 版权弹窗 - 仅下载按钮触发
 const globalDownloadBtn = document.getElementById('globalDownloadBtn');
 const copyrightModal = document.getElementById('copyrightModal');
@@ -294,6 +452,7 @@ function closeCopyrightModalFunc() {
 globalDownloadBtn.addEventListener('click', openCopyrightModal);
 closeCopyrightModal.addEventListener('click', closeCopyrightModalFunc);
 copyrightOverlay.addEventListener('click', closeCopyrightModalFunc);
+
 // 联系/合作弹窗
 const contactModal = document.getElementById('contactModal');
 const closeContactModal = document.getElementById('closeContactModal');
@@ -316,7 +475,8 @@ contactLinkList.forEach(item => {
 });
 closeContactModal.addEventListener('click', closeContactModalFunc);
 contactOverlay.addEventListener('click', closeContactModalFunc);
-// 播放核心函数
+
+// 播放核心函数（新增当前曲目高亮+播放历史记录）
 function loadTrack(index) {
   if(index < 0 || index >= tracks.length) return;
   currentIndex = index;
@@ -327,14 +487,20 @@ function loadTrack(index) {
   audio.src = src;
   document.getElementById('currentTrackName').textContent = name;
   document.getElementById('currentmp3').textContent = `${mp3} mp3`;
-  tracks.forEach(el => el.style.backgroundColor = '');
-  track.style.backgroundColor = '#222233';
+  // 新增：移除所有激活状态，给当前曲目添加高亮
+  tracks.forEach(el => el.classList.remove('active'));
+  track.classList.add('active');
+  // 新增：添加到播放历史（去重）
+  addToHistory({ name, src, index });
 }
 function playCurrent() {
   loadTrack(currentIndex);
   audio.play();
   document.getElementById('playPauseBtn').textContent = '⏸';
+  // 启动心电图动画
+  startEcgAnimation();
 }
+
 // 上一曲
 document.getElementById('prevBtn').addEventListener('click', () => {
   if(isShuffle) {
@@ -344,17 +510,21 @@ document.getElementById('prevBtn').addEventListener('click', () => {
   }
   playCurrent();
 });
+
 // 播放/暂停
 document.getElementById('playPauseBtn').addEventListener('click', () => {
   if(audio.paused) {
     if(!audio.src) loadTrack(0);
     audio.play();
     document.getElementById('playPauseBtn').textContent = '⏸';
+    startEcgAnimation();
   } else {
     audio.pause();
     document.getElementById('playPauseBtn').textContent = '▶';
+    pauseEcgAnimation();
   }
 });
+
 // 下一曲
 document.getElementById('nextBtn').addEventListener('click', () => {
   nextTrack();
@@ -370,6 +540,7 @@ function nextTrack() {
   }
   playCurrent();
 }
+
 // 歌曲播放结束自动切歌
 audio.addEventListener('ended', () => {
   if(loopMode === 'single') {
@@ -379,6 +550,7 @@ audio.addEventListener('ended', () => {
     nextTrack();
   }
 });
+
 // 点击歌曲列表切换（无弹窗）
 tracks.forEach((item, idx) => {
   item.addEventListener('click', () => {
@@ -386,10 +558,12 @@ tracks.forEach((item, idx) => {
     playCurrent();
   });
 });
+
 // 音量控制
 document.getElementById('volumeSlider').addEventListener('input', (e) => {
   audio.volume = e.target.value;
 });
+
 // 随机播放按钮
 const shuffleBtn = document.getElementById('shuffleBtn');
 shuffleBtn.addEventListener('click', () => {
@@ -398,6 +572,7 @@ shuffleBtn.addEventListener('click', () => {
   if(isShuffle) loopMode = 'none';
   document.getElementById('loopBtn').style.backgroundColor = '#222233';
 });
+
 // 循环播放按钮
 const loopBtn = document.getElementById('loopBtn');
 loopBtn.addEventListener('click', () => {
@@ -419,7 +594,7 @@ loopBtn.addEventListener('click', () => {
   shuffleBtn.style.backgroundColor = '#222233';
 });
 
-// 新增1：纯音乐定制点击弹窗（与联系我们弹窗逻辑一致）
+// 纯音乐定制点击弹窗（与联系我们弹窗逻辑一致）
 const customLinks = document.querySelectorAll('a[href="#custom"]');
 customLinks.forEach(link => {
   link.addEventListener('click', function(e) {
@@ -428,35 +603,214 @@ customLinks.forEach(link => {
   });
 });
 
-// 新增2：赛博朋克进度条功能逻辑
+// 赛博朋克进度条功能逻辑
 const progressBar = document.getElementById('progressBar');
 const currentTimeEl = document.getElementById('currentTime');
 const totalTimeEl = document.getElementById('totalTime');
-
 // 格式化时间为 00:00 格式
 function formatTime(seconds) {
   const mins = Math.floor(seconds / 60);
   const secs = Math.floor(seconds % 60);
   return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 }
-
 // 音频元数据加载完成后显示总时长
 audio.addEventListener('loadedmetadata', () => {
   totalTimeEl.textContent = formatTime(audio.duration);
 });
-
 // 音频播放时更新进度条和当前时间
 audio.addEventListener('timeupdate', () => {
   const progress = (audio.currentTime / audio.duration) * 100;
   progressBar.value = progress;
   currentTimeEl.textContent = formatTime(audio.currentTime);
 });
-
 // 点击进度条跳转播放位置
 progressBar.addEventListener('input', () => {
   const seekTime = (progressBar.value / 100) * audio.duration;
   audio.currentTime = seekTime;
 });
+
+// 新增1：静音切换功能
+const muteBtn = document.getElementById('muteBtn');
+let isMuted = false;
+muteBtn.addEventListener('click', () => {
+  isMuted = !isMuted;
+  audio.muted = isMuted;
+  muteBtn.textContent = isMuted ? '🔇 取消静音' : '🔊 静音';
+  muteBtn.style.backgroundColor = isMuted ? '#7a3cfd' : '#222233';
+});
+
+// 新增2：进度条悬浮显示当前时间
+const progressTooltip = document.getElementById('progressTooltip');
+const progressContainer = document.querySelector('.progress-container');
+progressBar.addEventListener('mousemove', (e) => {
+  if(!audio.duration) return;
+  const rect = progressBar.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const percent = x / rect.width;
+  const tooltipTime = formatTime(percent * audio.duration);
+  progressTooltip.textContent = tooltipTime;
+  progressTooltip.style.display = 'block';
+  progressTooltip.style.left = `${x - 20}px`;
+  progressTooltip.style.top = '-25px';
+});
+progressBar.addEventListener('mouseleave', () => {
+  progressTooltip.style.display = 'none';
+});
+
+// 新增3：曲目搜索功能
+const searchInput = document.getElementById('searchInput');
+const searchBtn = document.getElementById('searchBtn');
+function searchTracks(keyword) {
+  if(!keyword.trim()) {
+    // 关键词为空，显示所有曲目
+    tracks.forEach(track => track.style.display = 'block');
+    return;
+  }
+  const lowerKeyword = keyword.toLowerCase();
+  tracks.forEach(track => {
+    const trackName = track.dataset.name.toLowerCase();
+    const display = trackName.includes(lowerKeyword) ? 'block' : 'none';
+    track.style.display = display;
+  });
+}
+searchBtn.addEventListener('click', () => {
+  searchTracks(searchInput.value);
+});
+// 支持回车搜索
+searchInput.addEventListener('keydown', (e) => {
+  if(e.key === 'Enter') searchTracks(searchInput.value);
+});
+
+// 新增4：播放历史功能
+const historyList = document.getElementById('historyList');
+const clearHistoryBtn = document.getElementById('clearHistoryBtn');
+// 添加到历史记录（去重，最多保留10条）
+function addToHistory(trackInfo) {
+  // 去重
+  playHistory = playHistory.filter(item => item.src !== trackInfo.src);
+  // 添加到开头
+  playHistory.unshift(trackInfo);
+  // 限制最多10条
+  if(playHistory.length > 10) playHistory.pop();
+  // 保存到本地存储
+  localStorage.setItem('playHistory', JSON.stringify(playHistory));
+  // 更新页面显示
+  renderHistory();
+}
+// 渲染历史记录
+function renderHistory() {
+  if(playHistory.length === 0) {
+    historyList.innerHTML = '<span class="history-item">暂无播放记录</span>';
+    return;
+  }
+  historyList.innerHTML = playHistory.map((item, idx) => `
+    <span class="history-item" data-index="${item.index}">
+      ${item.name}
+    </span>
+  `).join('');
+  // 点击历史记录播放
+  document.querySelectorAll('.history-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const index = parseInt(item.dataset.index);
+      currentIndex = index;
+      playCurrent();
+    });
+  });
+}
+// 清空历史记录
+clearHistoryBtn.addEventListener('click', () => {
+  playHistory = [];
+  localStorage.removeItem('playHistory');
+  renderHistory();
+});
+// 初始化渲染历史记录
+renderHistory();
+
+// 新增5：深色彩虹心电图波浪动画（核心修改部分）
+const ecgCanvas = document.getElementById('ecgCanvas');
+const ecgCtx = ecgCanvas.getContext('2d');
+let ecgAnimationId = null;
+let ecgX = 0;
+// 设置canvas尺寸
+function resizeEcgCanvas() {
+  ecgCanvas.width = ecgCanvas.parentElement.clientWidth;
+  ecgCanvas.height = ecgCanvas.parentElement.clientHeight;
+}
+resizeEcgCanvas();
+window.addEventListener('resize', resizeEcgCanvas);
+// 生成心电图波形数据（闪电效果）
+function generateEcgData() {
+  const data = [];
+  const centerY = ecgCanvas.height / 2;
+  const amplitude = 15 + Math.random() * 10; // 随机振幅，模拟闪电波动
+  for(let x = 0; x < ecgCanvas.width; x++) {
+    let y = centerY;
+    // 模拟心电图特征：正常波动+随机闪电尖峰
+    if(Math.random() < 0.02) {
+      // 闪电尖峰
+      y = centerY + (Math.random() > 0.5 ? 1 : -1) * (amplitude * 2 + Math.random() * 10);
+    } else if(Math.random() < 0.3) {
+      // 小波动
+      y = centerY + (Math.random() > 0.5 ? 1 : -1) * (amplitude * 0.5 + Math.random() * 5);
+    }
+    data.push(y);
+  }
+  return data;
+}
+// 绘制心电图（核心修改：深色彩虹渐变）
+function drawEcg() {
+  ecgCtx.clearRect(0, 0, ecgCanvas.width, ecgCanvas.height);
+  const data = generateEcgData();
+  ecgCtx.beginPath();
+  ecgCtx.moveTo(0, data[0]);
+  // 深色彩虹渐变（红→橙→黄→绿→蓝→靛→紫，均加深饱和度）
+  const gradient = ecgCtx.createLinearGradient(0, 0, ecgCanvas.width, 0);
+  gradient.addColorStop(0, '#8B0000'); // 深红
+  gradient.addColorStop(0.17, '#CD5C5C'); // 深红橙
+  gradient.addColorStop(0.33, '#B8860B'); // 深金黄
+  gradient.addColorStop(0.5, '#006400'); // 深绿
+  gradient.addColorStop(0.67, '#00008B'); // 深蓝
+  gradient.addColorStop(0.83, '#4B0082'); // 深靛蓝
+  gradient.addColorStop(1, '#800080'); // 深紫
+  ecgCtx.strokeStyle = gradient;
+  ecgCtx.lineWidth = 2.5; // 线条加粗，增强视觉冲击
+  ecgCtx.shadowColor = '#fff'; // 白色阴影，凸显深色彩虹
+  ecgCtx.shadowBlur = 5;
+  // 绘制波形
+  for(let x = 1; x < data.length; x++) {
+    ecgCtx.lineTo(x, data[x]);
+  }
+  ecgCtx.stroke();
+  // 重置阴影
+  ecgCtx.shadowBlur = 0;
+}
+// 启动心电图动画
+function startEcgAnimation() {
+  if(ecgAnimationId) cancelAnimationFrame(ecgAnimationId);
+  function animate() {
+    drawEcg();
+    ecgAnimationId = requestAnimationFrame(animate);
+  }
+  animate();
+}
+// 暂停心电图动画（静态基线也改为深色）
+function pauseEcgAnimation() {
+  if(ecgAnimationId) {
+    cancelAnimationFrame(ecgAnimationId);
+    ecgAnimationId = null;
+    // 暂停时绘制静态深色基线
+    ecgCtx.clearRect(0, 0, ecgCanvas.width, ecgCanvas.height);
+    const centerY = ecgCanvas.height / 2;
+    ecgCtx.beginPath();
+    ecgCtx.moveTo(0, centerY);
+    ecgCtx.lineTo(ecgCanvas.width, centerY);
+    ecgCtx.strokeStyle = 'rgba(128, 128, 128, 0.5)'; // 深灰色基线
+    ecgCtx.lineWidth = 1.5;
+    ecgCtx.stroke();
+  }
+}
+// 初始绘制静态基线
+pauseEcgAnimation();
 </script>
 </body>
 </html>
