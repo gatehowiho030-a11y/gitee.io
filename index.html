@@ -80,7 +80,6 @@
             box-shadow: 0 0 12px #ff00ff, inset 0 0 8px rgba(0, 255, 255, 0.5);
             z-index: -1;
         }
-
         /* 新增：浏览器兼容性+移动端适配样式（不影响原有样式） */
         * {
             margin: 0;
@@ -203,8 +202,6 @@
             <p>✅ 购买版权后：获取高音质WAV原版音频 + 商用授权文件</p>
             <p>❌ 未经授权，禁止下载、搬运、剪辑、商用及二次传播</p>
         </div>
-    
-        </div>
     </div>
 </div>
 <!-- 联系我们 / 商业合作 弹窗 -->
@@ -221,9 +218,6 @@
             <p>📞 工作微信：<strong>sjzbdpd</strong>（添加请备注：歌曲定制）</p>
             <p>📧 QQ 邮箱：<strong>2210301559@qq.com</strong></p>
             <p>💼 合作范围：苏玖suon原创音乐定制、版权售卖、影视/短视频/游戏配乐、商用授权</p>
-        </div>
-       
-            
         </div>
     </div>
 </div>
@@ -309,9 +303,17 @@
             <div class="track-item" data-src="./music/track1.mp3" data-name="灵魂动感电音【苏玖suon独家】" data-mp3="1">
               <span class="track-num">01</span>
               <span class="track-name">灵魂动感电音【热血向 | 苏玖suon独家】</span>
-              <div class="track-item" data-src="./music/track2.mp3" data-name="心灵爆炸电音【苏玖suon独家】" data-mp3="1">
+            </div>
+            <div class="track-item" data-src="./music/track2.mp3" data-name="心灵爆炸电音【苏玖suon独家】" data-mp3="1">
               <span class="track-num">02</span>
                <span class="track-name">心灵爆炸电音【热血向 | 苏玖suon独家】</span>
+            </div>
+   
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 <!-- 纯音乐定制 -->
 <section id="custom" class="custom-section">
@@ -422,16 +424,17 @@ closeContactModal.addEventListener('click', closeContactModalFunc);
 contactOverlay.addEventListener('click', closeContactModalFunc);
 // 播放核心函数
 function loadTrack(index) {
-  if(index < 0 || index >= tracks.length) return;
+  const allTracks = getLatestTracks(); // 适配新增歌曲，获取最新列表
+  if(index < 0 || index >= allTracks.length) return;
   currentIndex = index;
-  const track = tracks[index];
+  const track = allTracks[index];
   const src = track.dataset.src;
   const name = track.dataset.name;
   const mp3 = track.dataset.mp3;
   audio.src = src;
   document.getElementById('currentTrackName').textContent = name;
   document.getElementById('currentmp3').textContent = `${mp3} mp3`;
-  tracks.forEach(el => el.style.backgroundColor = '');
+  allTracks.forEach(el => el.style.backgroundColor = '');
   track.style.backgroundColor = '#222233';
 }
 function playCurrent() {
@@ -441,17 +444,20 @@ function playCurrent() {
 }
 // 上一曲
 document.getElementById('prevBtn').addEventListener('click', () => {
+  const allTracks = getLatestTracks();
+  if(allTracks.length === 0) return;
   if(isShuffle) {
-    currentIndex = Math.floor(Math.random() * tracks.length);
+    currentIndex = Math.floor(Math.random() * allTracks.length);
   } else {
-    currentIndex = (currentIndex - 1 + tracks.length) % tracks.length;
+    currentIndex = (currentIndex - 1 + allTracks.length) % allTracks.length;
   }
   playCurrent();
 });
 // 播放/暂停
 document.getElementById('playPauseBtn').addEventListener('click', () => {
+  const allTracks = getLatestTracks();
   if(audio.paused) {
-    if(!audio.src) loadTrack(0);
+    if(!audio.src && allTracks.length > 0) loadTrack(0);
     audio.play();
     document.getElementById('playPauseBtn').textContent = '⏸';
   } else {
@@ -464,13 +470,15 @@ document.getElementById('nextBtn').addEventListener('click', () => {
   nextTrack();
 });
 function nextTrack() {
+  const allTracks = getLatestTracks();
+  if(allTracks.length === 0) return;
   if(isShuffle) {
     let newIndex;
-    do { newIndex = Math.floor(Math.random() * tracks.length); }
-    while(newIndex === currentIndex && tracks.length > 1);
+    do { newIndex = Math.floor(Math.random() * allTracks.length); }
+    while(newIndex === currentIndex && allTracks.length > 1);
     currentIndex = newIndex;
   } else {
-    currentIndex = (currentIndex + 1) % tracks.length;
+    currentIndex = (currentIndex + 1) % allTracks.length;
   }
   playCurrent();
 }
@@ -483,7 +491,7 @@ audio.addEventListener('ended', () => {
     nextTrack();
   }
 });
-// 点击歌曲列表切换（无弹窗）
+// 点击歌曲列表切换（无弹窗）- 保留原有逻辑，与新增逻辑互补
 tracks.forEach((item, idx) => {
   item.addEventListener('click', () => {
     currentIndex = idx;
@@ -555,7 +563,6 @@ progressBar.addEventListener('input', () => {
   const seekTime = (progressBar.value / 100) * audio.duration;
   audio.currentTime = seekTime;
 });
-
 // 新增3：浏览器兼容性+移动端适配JS（不修改原有逻辑）
 // 移动端导航控制
 const mobileNavBtn = document.getElementById('mobileNavBtn');
@@ -606,6 +613,35 @@ const modalOverlays = document.querySelectorAll('.modal-overlay');
 modalOverlays.forEach(overlay => {
   overlay.addEventListener('touchmove', (e) => {
     e.preventDefault();
+  });
+});
+
+// #################### 新增核心功能：动态获取歌曲+点击即播 ####################
+// 动态获取最新歌曲列表（支持新增歌曲自动识别）
+function getLatestTracks() {
+  return Array.from(document.querySelectorAll('.track-item'));
+}
+
+// 事件委托监听歌曲点击（含新增歌曲，不影响原有逻辑）
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelector('.collection-info').addEventListener('click', function(e) {
+    const targetTrack = e.target.closest('.track-item');
+    if (!targetTrack) return;
+    
+    // 获取最新歌曲列表并定位索引
+    const allTracks = getLatestTracks();
+    const clickIndex = allTracks.indexOf(targetTrack);
+    
+    // 触发播放（复用原有逻辑，确保功能统一）
+    currentIndex = clickIndex;
+    loadTrack(clickIndex);
+    audio.load(); // 强制加载，消除卡顿
+    audio.play().catch(err => {
+      if (err.name === 'NotAllowedError') {
+        alert('请先点击播放器播放按钮激活音频权限~');
+      }
+    });
+    document.getElementById('playPauseBtn').textContent = '⏸';
   });
 });
 </script>
